@@ -5,6 +5,66 @@
 **Status**: Draft  
 **Input**: User description: "$ARGUMENTS"
 
+## Semantic Scope *(Required)*
+
+<!--
+  CRITICAL: Define the semantic boundaries for this feature to enable safe Human-AI collaboration.
+  This section enforces bounded context principles and prevents unintended cross-module changes.
+  
+  Reference: https://github.com/dkuwcreator/Semantic-Architecture
+-->
+
+### Modules In Scope
+
+<!--
+  List all Semantic Modules that WILL be modified by this feature.
+  For each module, specify:
+  - Module path/name
+  - Current responsibility
+  - How this feature affects it
+-->
+
+- **[Module 1 Path/Name]**:
+  - **Responsibility**: [What this module does]
+  - **Impact**: [How this feature changes it - e.g., "Add new endpoint", "Modify validation logic", "Extend data model"]
+
+- **[Module 2 Path/Name]**:
+  - **Responsibility**: [What this module does]
+  - **Impact**: [How this feature changes it]
+
+### Modules Explicitly Out Of Scope
+
+<!--
+  List modules that this feature will NOT touch, especially if there might be ambiguity.
+  This prevents scope creep and unintended changes.
+-->
+
+- **[Module Name]**: [Reason why out of scope - e.g., "Auth handled separately", "Not needed for MVP", "Deferred to Phase 2"]
+- **[Module Name]**: [Reason]
+
+### Cross-Module Impacts
+
+<!--
+  Document dependencies, compatibility requirements, and migration considerations.
+  Leave empty if this is a single-module change.
+-->
+
+**Module Dependencies**:
+
+- [Module A] depends on [Module B] for [specific capability]
+- [New interface/contract between modules]
+
+**Compatibility Requirements**:
+
+- [Backward compatibility notes]
+- [Breaking changes if any, with justification]
+
+**Migration Notes**:
+
+- [Required updates to dependent modules]
+- [Data migration requirements]
+- [Deployment sequencing if modules must be updated in order]
+
 ## User Scenarios & Testing *(mandatory)*
 
 <!--

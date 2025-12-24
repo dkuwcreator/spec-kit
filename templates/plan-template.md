@@ -33,6 +33,105 @@
 
 [Gates determined based on constitution file]
 
+## Semantic Architecture Plan *(Required)*
+
+<!--
+  CRITICAL: Map this feature to Semantic Modules and document meaning parity requirements.
+  This ensures documentation stays synchronized with code changes.
+  
+  Reference: https://github.com/dkuwcreator/Semantic-Architecture
+-->
+
+### Modules Impacted
+
+<!--
+  List each Semantic Module that will be modified by this feature.
+  For each module, specify what changes are planned.
+-->
+
+- **[Module 1 Path/Name]**:
+  - **Current Responsibility**: [What it does now]
+  - **Planned Changes**: [Specific modifications - e.g., "Add /api/v1/users endpoint", "Extend User model with email field"]
+  - **Files Affected**: [List key files - e.g., "src/api/users.py, src/models/user.py"]
+
+- **[Module 2 Path/Name]**:
+  - **Current Responsibility**: [What it does now]
+  - **Planned Changes**: [Specific modifications]
+  - **Files Affected**: [List key files]
+
+### Invariants to Preserve
+
+<!--
+  Document non-negotiable behaviors that MUST remain unchanged.
+  These are the "contracts" this feature must honor.
+-->
+
+- **[Module/Component]**: [Specific invariant - e.g., "User IDs must remain immutable", "API versioning maintains /v1 compatibility"]
+- **[Module/Component]**: [Specific invariant]
+
+### Interfaces & Dependencies Touched
+
+<!--
+  Map out how modules interact and what contracts are being modified.
+-->
+
+**New Interfaces**:
+
+- [Module A] → [Module B]: [New contract/API - e.g., "UserService.validateEmail() method"]
+
+**Modified Interfaces**:
+
+- [Existing interface]: [How it changes - e.g., "Add optional 'include_metadata' parameter to User.toJSON()"]
+
+**Dependencies**:
+
+- [Module A] now depends on [Library/Module B] for [capability]
+- [Existing dependency changes]
+
+### Meaning Parity Updates Required
+
+<!--
+  CRITICAL: List all documentation that MUST be updated to maintain meaning parity.
+  Stale documentation is a blocking defect.
+-->
+
+#### README.md Updates
+
+For each impacted module:
+
+- **[Module 1 Path]**:
+  - [ ] Update responsibility description to reflect [new capability]
+  - [ ] Add/modify usage examples for [new feature]
+  - [ ] Update invariants section if [behavior changed]
+  - [ ] Add integration patterns for [new interfaces]
+
+- **[Module 2 Path]**:
+  - [ ] Update responsibility description
+  - [ ] Add/modify usage examples
+  - [ ] Document new dependencies
+
+#### AGENT_INSTRUCTION.md Updates
+
+For each impacted module:
+
+- **[Module 1 Path]**:
+  - [ ] Update allowed edits to include [new operations]
+  - [ ] Update safety constraints for [new behavior]
+  - [ ] Add testing requirements for [new functionality]
+  - [ ] Update boundary definitions if [scope changed]
+
+- **[Module 2 Path]**:
+  - [ ] Update allowed edits
+  - [ ] Update safety constraints
+  - [ ] Add testing requirements
+
+#### Other Documentation
+
+- [ ] **API Documentation**: Update OpenAPI/contracts for [changed endpoints]
+- [ ] **Architecture Diagrams**: Reflect new [module relationships/dependencies]
+- [ ] **Migration Guides**: Document [breaking changes or upgrade paths]
+- [ ] **Semantic Module Index**: Update if [modules added/removed/renamed]
+
 ## Project Structure
 
 ### Documentation (this feature)
@@ -98,7 +197,7 @@ directories captured above]
 
 > **Fill ONLY if Constitution Check has violations that must be justified**
 
-| Violation | Why Needed | Simpler Alternative Rejected Because |
-|-----------|------------|-------------------------------------|
-| [e.g., 4th project] | [current need] | [why 3 projects insufficient] |
-| [e.g., Repository pattern] | [specific problem] | [why direct DB access insufficient] |
+| Violation                      | Why Needed         | Simpler Alternative Rejected Because |
+|--------------------------------|--------------------|--------------------------------------|
+| [e.g., 4th project]            | [current need]     | [why 3 projects insufficient]        |
+| [e.g., Repository pattern]     | [specific problem] | [why direct DB access insufficient]  |

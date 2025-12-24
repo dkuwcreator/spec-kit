@@ -32,6 +32,7 @@ You **MUST** consider the user input before proceeding (if not empty).
 
 3. **Execute plan workflow**: Follow the structure in IMPL_PLAN template to:
    - Fill Technical Context (mark unknowns as "NEEDS CLARIFICATION")
+   - **Fill Semantic Architecture Plan section** (see below)
    - Fill Constitution Check section from constitution
    - Evaluate gates (ERROR if violations unjustified)
    - Phase 0: Generate research.md (resolve all NEEDS CLARIFICATION)
@@ -65,6 +66,34 @@ You **MUST** consider the user input before proceeding (if not empty).
    - Alternatives considered: [what else evaluated]
 
 **Output**: research.md with all NEEDS CLARIFICATION resolved
+
+### Semantic Architecture Planning
+
+**Prerequisites:** Semantic Scope from spec.md loaded
+
+1. **Map modules to implementation**:
+   - For each module in scope from spec.md, determine:
+     - Specific files/components that will change
+     - Current responsibilities and how they'll be modified
+     - Invariants that must be preserved
+   
+2. **Document interfaces and dependencies**:
+   - Identify new or modified interfaces between modules
+   - Map dependencies between modules
+   - Note any breaking changes with justification
+
+3. **Plan meaning parity updates**:
+   - For each impacted module, list required documentation updates:
+     - README.md: responsibilities, examples, invariants
+     - AGENT_INSTRUCTION.md: allowed edits, boundaries, tests
+   - Identify other docs needing updates (API docs, diagrams, etc.)
+
+4. **Validate bounded context compliance**:
+   - Ensure changes respect declared semantic scope from spec
+   - Flag any scope creep or unexpected cross-module impacts
+   - Document escalation for cross-module changes
+
+**Output**: Semantic Architecture Plan section filled in plan.md
 
 ### Phase 1: Design & Contracts
 
