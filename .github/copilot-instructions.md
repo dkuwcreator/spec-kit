@@ -60,6 +60,7 @@ This is a fork of GitHub Spec Kit that integrates **Semantic Architecture** prin
 - **REQUIRED sections**: Clearly mark new mandatory sections
 
 Templates live in:
+
 - `templates/commands/*.md` - Command behavior templates
 - `templates/*.md` - Artifact templates (spec, plan, tasks, etc.)
 - `memory/constitution.md` - Constitution template
@@ -118,7 +119,7 @@ Spec Kit follows this template-driven workflow:
 ## Resources
 
 - **Spec Kit README**: [/README.md](/README.md)
-- **Semantic Architecture**: https://github.com/dkuwcreator/Semantic-Architecture
+- **Semantic Architecture**: <https://github.com/dkuwcreator/Semantic-Architecture>
 - **Semantic Architecture Docs**: [/docs/semantic-architecture.md](/docs/semantic-architecture.md)
 - **Contributing Guide**: [/CONTRIBUTING.md](/CONTRIBUTING.md)
 

@@ -99,7 +99,7 @@ When changes affect multiple modules:
 
 **Required actions when changing module behavior**:
 
-1. **Update README.md**: 
+1. **Update README.md**:
    - Reflect changed responsibilities or invariants
    - Update examples if behavior changes
    - Document new integration patterns

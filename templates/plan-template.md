@@ -76,12 +76,15 @@
 -->
 
 **New Interfaces**:
+
 - [Module A] → [Module B]: [New contract/API - e.g., "UserService.validateEmail() method"]
 
 **Modified Interfaces**:
+
 - [Existing interface]: [How it changes - e.g., "Add optional 'include_metadata' parameter to User.toJSON()"]
 
 **Dependencies**:
+
 - [Module A] now depends on [Library/Module B] for [capability]
 - [Existing dependency changes]
 
@@ -194,7 +197,7 @@ directories captured above]
 
 > **Fill ONLY if Constitution Check has violations that must be justified**
 
-| Violation | Why Needed | Simpler Alternative Rejected Because |
-|-----------|------------|-------------------------------------|
-| [e.g., 4th project] | [current need] | [why 3 projects insufficient] |
-| [e.g., Repository pattern] | [specific problem] | [why direct DB access insufficient] |
+| Violation                      | Why Needed         | Simpler Alternative Rejected Because |
+|--------------------------------|--------------------|--------------------------------------|
+| [e.g., 4th project]            | [current need]     | [why 3 projects insufficient]        |
+| [e.g., Repository pattern]     | [specific problem] | [why direct DB access insufficient]  |

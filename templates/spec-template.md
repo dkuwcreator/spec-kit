@@ -24,11 +24,11 @@
   - How this feature affects it
 -->
 
-- **[Module 1 Path/Name]**: 
+- **[Module 1 Path/Name]**:
   - **Responsibility**: [What this module does]
   - **Impact**: [How this feature changes it - e.g., "Add new endpoint", "Modify validation logic", "Extend data model"]
 
-- **[Module 2 Path/Name]**: 
+- **[Module 2 Path/Name]**:
   - **Responsibility**: [What this module does]
   - **Impact**: [How this feature changes it]
 
@@ -50,14 +50,17 @@
 -->
 
 **Module Dependencies**:
+
 - [Module A] depends on [Module B] for [specific capability]
 - [New interface/contract between modules]
 
 **Compatibility Requirements**:
+
 - [Backward compatibility notes]
 - [Breaking changes if any, with justification]
 
 **Migration Notes**:
+
 - [Required updates to dependent modules]
 - [Data migration requirements]
 - [Deployment sequencing if modules must be updated in order]

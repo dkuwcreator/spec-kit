@@ -32,14 +32,18 @@ A **Semantic Module** is the fundamental unit for safe Human–AI collaboration.
 ### Required Artifacts
 
 #### README.md (Human Intent)
+
 Documents what the module does and why it exists:
+
 - **Purpose**: Clear statement of the module's responsibility
 - **Invariants**: Non-negotiable behavioral guarantees
 - **Examples**: Usage patterns and integration examples
 - **Dependencies**: What the module requires from other modules
 
 #### AGENT_INSTRUCTION.md (AI Guidance)
+
 Guides AI agents on how to safely work with the module:
+
 - **Boundaries**: What the module does and doesn't do
 - **Allowed Edits**: Operations that are safe to perform
 - **Safety Constraints**: Rules that must never be violated
@@ -61,6 +65,7 @@ Semantic Architecture integrates into each phase of Spec Kit's template-driven w
 **Added**: Semantic Architecture principles section in `memory/constitution.md`
 
 Defines organization-wide rules for:
+
 - Module boundaries and bounded contexts
 - Escalation requirements for cross-module changes
 - Meaning parity enforcement
@@ -73,7 +78,9 @@ Defines organization-wide rules for:
 Every feature specification must declare:
 
 #### Modules In Scope
+
 List all modules that will be modified:
+
 ```markdown
 - **auth/login**: Authentication module
   - **Responsibility**: User login and session management
@@ -81,14 +88,18 @@ List all modules that will be modified:
 ```
 
 #### Modules Out Of Scope
+
 Prevent scope creep by explicitly excluding modules:
+
 ```markdown
 - **auth/signup**: User registration not affected by this feature
 - **payment**: Separate feature, not in this scope
 ```
 
 #### Cross-Module Impacts
+
 Document dependencies and compatibility requirements:
+
 ```markdown
 **Dependencies**: 
 - auth/login depends on auth/tokens for JWT generation
@@ -105,6 +116,7 @@ Document dependencies and compatibility requirements:
 The implementation plan must map features to modules:
 
 #### Modules Impacted
+
 ```markdown
 - **auth/login**:
   - Current Responsibility: Email/password authentication
@@ -113,6 +125,7 @@ The implementation plan must map features to modules:
 ```
 
 #### Invariants to Preserve
+
 ```markdown
 - User session tokens remain valid after OAuth2 integration
 - Existing password-based login continues to work
@@ -120,6 +133,7 @@ The implementation plan must map features to modules:
 ```
 
 #### Meaning Parity Updates Required
+
 ```markdown
 **README.md Updates**:
 - auth/login: Document OAuth2 provider configuration
@@ -340,6 +354,7 @@ Sometimes features genuinely need to modify multiple modules. Semantic Architect
 ### Q: Does this create more work?
 
 A: Upfront, yes—you document module scope. Long-term, it saves time by preventing:
+
 - Scope creep and unintended changes
 - Debugging due to unclear boundaries
 - Onboarding slowdowns from outdated docs
@@ -367,8 +382,8 @@ A: Start by adding Semantic Scope to new features. Over time, backfill module do
 
 ## Resources
 
-- **Semantic Architecture Repo**: https://github.com/dkuwcreator/Semantic-Architecture
-- **Spec Kit Repository**: https://github.com/dkuwcreator/spec-kit
+- **Semantic Architecture Repo**: <https://github.com/dkuwcreator/Semantic-Architecture>
+- **Spec Kit Repository**: <https://github.com/dkuwcreator/spec-kit>
 - **Constitution Template**: [/memory/constitution.md](/memory/constitution.md)
 - **Spec Template**: [/templates/spec-template.md](/templates/spec-template.md)
 - **Plan Template**: [/templates/plan-template.md](/templates/plan-template.md)
