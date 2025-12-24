@@ -116,6 +116,71 @@ You **MUST** consider the user input before proceeding (if not empty).
    - **Non-Functional Requirements** (Performance, Security, Accessibility, etc. - are they specified?)
    - **Dependencies & Assumptions** (Are they documented and validated?)
    - **Ambiguities & Conflicts** (What needs clarification?)
+   - **Semantic Architecture Compliance** (Module scope, doc parity, bounded contexts - see below)
+
+   **SEMANTIC ARCHITECTURE COMPLIANCE CHECKS**:
+   
+   When the checklist domain relates to feature specifications, planning, or implementation, 
+   ALWAYS include a "Semantic Architecture Compliance" category with these requirement quality checks:
+   
+   **Scope Declaration** (from spec.md):
+   - "Are all impacted modules explicitly listed in the Semantic Scope section? [Completeness, Spec §Semantic Scope]"
+   - "Are modules out of scope documented with rationale? [Coverage, Spec §Semantic Scope]"
+   - "Are cross-module impacts and dependencies clearly specified? [Clarity, Spec §Cross-Module Impacts]"
+   - "Is the semantic scope bounded to prevent unintended changes? [Bounded Context]"
+   
+   **Module Impact Mapping** (from plan.md):
+   - "Are all impacted modules listed in the Semantic Architecture Plan? [Completeness, Plan §Semantic Architecture Plan]"
+   - "Are invariants to preserve documented for each module? [Coverage, Plan §Invariants]"
+   - "Are interfaces and dependencies between modules specified? [Clarity, Plan §Interfaces & Dependencies]"
+   - "Do planned changes respect declared semantic scope from spec? [Consistency]"
+   
+   **Meaning Parity Requirements** (from plan.md):
+   - "Are README.md updates required for each impacted module? [Completeness, Plan §Meaning Parity Updates]"
+   - "Are AGENT_INSTRUCTION.md updates required for each impacted module? [Completeness, Plan §Meaning Parity Updates]"
+   - "Are other documentation updates identified (API docs, diagrams, etc.)? [Coverage, Plan §Meaning Parity Updates]"
+   
+   **Task-Level Compliance** (from tasks.md):
+   - "Does tasks.md include README.md update tasks for each impacted module? [Completeness, Tasks §Semantic Architecture Compliance]"
+   - "Does tasks.md include AGENT_INSTRUCTION.md update tasks for each impacted module? [Completeness, Tasks §Semantic Architecture Compliance]"
+   - "Are semantic drift verification tasks included? [Coverage, Tasks §Semantic Drift Verification]"
+   - "Do documentation update tasks specify what needs to change? [Clarity, Tasks]"
+   
+   **Cross-Module Justification** (if applicable):
+   - "Are cross-module changes justified with clear rationale? [Justification, Spec/Plan]"
+   - "Are dependency impacts described for cross-module changes? [Coverage, Spec §Cross-Module Impacts]"
+   - "Are migration notes provided for interface changes? [Completeness, Plan §Migration Notes]"
+   
+   **Semantic Drift Prevention**:
+   - "Do code changes match the declared module boundaries? [Bounded Context, Spec vs Tasks]"
+   - "Are all planned module changes reflected in tasks? [Consistency, Plan vs Tasks]"
+   - "Is there alignment between spec → plan → tasks → implementation scope? [Traceability]"
+   - "Are documentation updates synchronized with implementation tasks? [Meaning Parity]"
+   
+   **Example Semantic Architecture Items**:
+   ```markdown
+   ## Semantic Architecture Compliance
+   
+   - [ ] CHK001 - Are all impacted modules explicitly listed in spec.md Semantic Scope section? [Completeness, Spec §Semantic Scope]
+   - [ ] CHK002 - Are modules explicitly out of scope documented with rationale? [Coverage, Spec §Semantic Scope]
+   - [ ] CHK003 - Are cross-module impacts and dependencies clearly specified? [Clarity, Spec §Cross-Module Impacts]
+   - [ ] CHK004 - Do planned changes in plan.md respect the declared semantic scope? [Consistency, Spec vs Plan]
+   - [ ] CHK005 - Are invariants to preserve documented for each impacted module? [Coverage, Plan §Invariants]
+   - [ ] CHK006 - Are README.md updates required for each impacted module? [Completeness, Plan §Meaning Parity]
+   - [ ] CHK007 - Are AGENT_INSTRUCTION.md updates required for each impacted module? [Completeness, Plan §Meaning Parity]
+   - [ ] CHK008 - Does tasks.md include documentation update tasks for all modules? [Completeness, Tasks §Semantic Compliance]
+   - [ ] CHK009 - Are semantic drift verification tasks included in tasks.md? [Coverage, Tasks §Semantic Drift]
+   - [ ] CHK010 - If cross-module changes exist, are they justified? [Justification, Spec/Plan]
+   - [ ] CHK011 - Are interface changes documented with migration notes? [Completeness, Plan §Migration Notes]
+   - [ ] CHK012 - Is there spec → plan → tasks alignment on module scope? [Traceability, Cross-artifact]
+   ```
+   
+   **When to include Semantic Architecture checks**:
+   - ALWAYS for feature specs, plans, or tasks reviews
+   - For architecture/design checklists
+   - For pre-implementation reviews
+   - For semantic drift audits
+   - Skip only if explicitly out of scope (e.g., pure UX/content checklists)
 
    **HOW TO WRITE CHECKLIST ITEMS - "Unit Tests for English"**:
 

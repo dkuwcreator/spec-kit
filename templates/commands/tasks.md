@@ -34,10 +34,12 @@ You **MUST** consider the user input before proceeding (if not empty).
 3. **Execute task generation workflow**:
    - Load plan.md and extract tech stack, libraries, project structure
    - Load spec.md and extract user stories with their priorities (P1, P2, P3, etc.)
+   - **Load Semantic Architecture Plan from plan.md**: Extract impacted modules and required documentation updates
    - If data-model.md exists: Extract entities and map to user stories
    - If contracts/ exists: Map endpoints to user stories
    - If research.md exists: Extract decisions for setup tasks
    - Generate tasks organized by user story (see Task Generation Rules below)
+   - **Generate semantic parity tasks** for each impacted module (README.md + AGENT_INSTRUCTION.md updates)
    - Generate dependency graph showing user story completion order
    - Create parallel execution examples per user story
    - Validate task completeness (each user story has all needed tasks, independently testable)
@@ -48,7 +50,8 @@ You **MUST** consider the user input before proceeding (if not empty).
    - Phase 2: Foundational tasks (blocking prerequisites for all user stories)
    - Phase 3+: One phase per user story (in priority order from spec.md)
    - Each phase includes: story goal, independent test criteria, tests (if requested), implementation tasks
-   - Final Phase: Polish & cross-cutting concerns
+   - **Phase N: Semantic Architecture Compliance** (REQUIRED - see template)
+   - Phase N+1: Polish & cross-cutting concerns
    - All tasks must follow the strict checklist format (see Task Generation Rules below)
    - Clear file paths for each task
    - Dependencies section showing story completion order

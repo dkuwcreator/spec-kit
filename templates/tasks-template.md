@@ -146,7 +146,77 @@ Examples of foundational tasks (adjust based on your project):
 
 ---
 
-## Phase N: Polish & Cross-Cutting Concerns
+## Phase N: Semantic Architecture Compliance *(Required)*
+
+**Purpose**: Maintain meaning parity between code and documentation to prevent semantic drift
+
+<!--
+  CRITICAL: These tasks ensure documentation stays synchronized with implementation.
+  Stale documentation is a HIGH severity defect that must be fixed before merge.
+  
+  Reference: https://github.com/dkuwcreator/Semantic-Architecture
+-->
+
+### Module Documentation Updates
+
+For each impacted module from the Semantic Architecture Plan:
+
+- [ ] TXXX [P] Update [Module 1 Path]/README.md:
+  - Update responsibility description to reflect [new capabilities]
+  - Add/modify usage examples for [new features]
+  - Update invariants section if [behaviors changed]
+  - Document new integration patterns
+
+- [ ] TXXX [P] Update [Module 1 Path]/AGENT_INSTRUCTION.md:
+  - Update allowed edits to include [new operations]
+  - Update safety constraints for [new behaviors]
+  - Add testing requirements for [new functionality]
+  - Update boundary definitions if [scope changed]
+
+- [ ] TXXX [P] Update [Module 2 Path]/README.md:
+  - Update responsibility description
+  - Add/modify usage examples
+  - Document new dependencies
+
+- [ ] TXXX [P] Update [Module 2 Path]/AGENT_INSTRUCTION.md:
+  - Update allowed edits
+  - Update safety constraints
+  - Add testing requirements
+
+### Cross-Module Documentation
+
+- [ ] TXXX [P] Update API documentation in contracts/:
+  - Sync OpenAPI/GraphQL schemas with implemented endpoints
+  - Document new error responses
+  - Update authentication/authorization requirements
+
+- [ ] TXXX Update architecture diagrams (if module relationships changed):
+  - Reflect new dependencies
+  - Show updated data flows
+  - Document interface contracts
+
+- [ ] TXXX [P] Update semantic module index (if exists):
+  - Add new modules if created
+  - Update module responsibilities if changed
+  - Document deprecated modules if removed
+
+### Semantic Drift Verification
+
+- [ ] TXXX Verify spec ↔ plan ↔ tasks ↔ code alignment:
+  - Confirm all functional requirements implemented
+  - Verify planned modules match actual changes
+  - Ensure no undocumented cross-module dependencies
+  - Check that declared semantic scope matches actual changes
+
+- [ ] TXXX Meaning parity check:
+  - Verify README.md describes actual behavior (not old/planned)
+  - Verify AGENT_INSTRUCTION.md reflects actual boundaries
+  - Confirm examples in docs work with current code
+  - Check that invariants are still enforced
+
+---
+
+## Phase N+1: Polish & Cross-Cutting Concerns
 
 **Purpose**: Improvements that affect multiple user stories
 
