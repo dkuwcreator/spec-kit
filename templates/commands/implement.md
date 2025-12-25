@@ -13,27 +13,33 @@ $ARGUMENTS
 
 You **MUST** consider the user input before proceeding (if not empty).
 
-## Critical Path Understanding
+## Artifact Spaces (Semantic Architecture)
 
-**IMPORTANT**: Understand the folder structure before implementing:
+**IMPORTANT**: Understand the three artifact spaces before implementing:
 
-- **Design Documents**: Located in `FEATURE_DIR` (specs/###-feature-name/)
-  - spec.md, plan.md, tasks.md, data-model.md, contracts/, research.md, quickstart.md
-  - These are READ to understand what to build
-  - Only update tasks.md to mark tasks complete [x]
+1. **Design Space (Read-Only)**:
+   - Contains: spec.md, plan.md, tasks.md, contracts/, data-model.md, research.md
+   - Location: `FEATURE_DIR` from script output
+   - **Purpose**: Requirements and specifications (read to understand WHAT to build)
+   - **Rule**: Only update tasks.md to mark tasks complete [x]
 
-- **Application Code**: Located at **repository root**
-  - src/, tests/, backend/, frontend/, etc. (structure from plan.md)
-  - This is where ALL implementation happens
-  - Create/modify files here based on tasks.md, NOT in specs folder
+2. **Build Space (Implementation Target)**:
+   - Contains: Application code, tests, configuration
+   - Location: Repository/application root
+   - **Purpose**: The actual product being built
+   - **Rule**: Create/modify ALL implementation files here (NOT in Design Space)
+   - Structure: src/, tests/, backend/, frontend/, etc. (from plan.md)
 
-- **Special Folders**: Do NOT implement application features here
-  - `.github/` - GitHub workflows (can modify if needed for CI/CD)
-  - `.vscode/` - Editor settings (can modify if needed)
-  - `specs/` - Feature specifications (design documents only)
-  - `templates/` - Spec Kit templates (do NOT modify)
-  - `memory/` - Constitution (do NOT modify during implementation)
-  - `scripts/` - Spec Kit utilities (do NOT modify)
+3. **Module Space (Co-located Meaning)**:
+   - Contains: Module code + README.md + AGENT_INSTRUCTION.md together
+   - Location: Within Build Space (e.g., src/<module>/)
+   - **Purpose**: Code and documentation live together to prevent semantic drift
+   - **Rule**: Update module docs when changing module behavior (same commit)
+
+**Agent Scope**:
+- Operate as **Local Module Agent** by default (single module only)
+- Escalate if changes require **Cluster Agent** (multiple modules) or **System Agent** (cross-cutting)
+- Document scope violations and justification
 
 ## Outline
 

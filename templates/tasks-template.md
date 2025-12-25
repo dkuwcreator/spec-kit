@@ -12,26 +12,40 @@ description: "Task list template for feature implementation"
 
 **Organization**: Tasks are grouped by user story to enable independent implementation and testing of each story.
 
-## Format: `[ID] [P?] [Story] Description`
+## Format: `[ID] [P?] [Module] [Story] Description`
 
 - **[P]**: Can run in parallel (different files, no dependencies)
+- **[Module]**: Which semantic module this task modifies (e.g., Auth, API, Users)
 - **[Story]**: Which user story this task belongs to (e.g., US1, US2, US3)
-- Include exact file paths in descriptions
+- Include exact file paths in Build Space (application root)
+- Mark if task requires module documentation updates
 
-## Path Conventions
+## Artifact Spaces (Semantic Architecture)
 
-**CRITICAL**: All implementation tasks target the **repository root**, NOT the specs folder.
+**CRITICAL**: Understand the three artifact spaces before implementing:
 
-- **Design documents** live in: `/specs/[###-feature-name]/` (spec.md, plan.md, tasks.md, etc.)
-- **Application code** lives at: **Repository root** (src/, tests/, etc.)
-- **Special folders** (`.github/`, `.vscode/`, `specs/`, `templates/`, `memory/`, `scripts/`) have distinct purposes - do NOT implement application features in these folders
+1. **Design Space (Read-Only)**:
+   - Contains: spec.md, plan.md, tasks.md, contracts/, data-model.md
+   - Location in Spec Kit: `FEATURE_DIR` (typically `specs/[###-feature-name]/`)
+   - **Tasks do NOT create/modify files here** (except marking tasks complete)
+
+2. **Build Space (Implementation Target)**:
+   - Contains: Application code, tests, runtime configuration
+   - Location in Spec Kit: Repository/application root
+   - **This is where ALL implementation tasks target their file paths**
+   - Structure: `src/`, `tests/`, `backend/`, `frontend/`, etc. (from plan.md)
+
+3. **Module Space (Co-located Meaning)**:
+   - Module code + documentation together in Build Space
+   - Each module has: code files + README.md + AGENT_INSTRUCTION.md
+   - Location: Within Build Space (e.g., `src/<module>/`, `backend/src/<module>/`)
+   - **Tasks MUST update module docs when changing module behavior**
 
 **Application Code Structure** (based on project type from plan.md):
 
 - **Single project**: `src/`, `tests/` at repository root
 - **Web app**: `backend/src/`, `frontend/src/` at repository root
 - **Mobile**: `api/src/`, `ios/src/` or `android/src/` at repository root
-- Paths shown below assume single project - adjust based on plan.md structure
 
 <!-- 
   ============================================================================
@@ -96,12 +110,19 @@ Examples of foundational tasks (adjust based on your project):
 
 ### Implementation for User Story 1
 
-- [ ] T012 [P] [US1] Create [Entity1] model in src/models/[entity1].py
-- [ ] T013 [P] [US1] Create [Entity2] model in src/models/[entity2].py
-- [ ] T014 [US1] Implement [Service] in src/services/[service].py (depends on T012, T013)
-- [ ] T015 [US1] Implement [endpoint/feature] in src/[location]/[file].py
-- [ ] T016 [US1] Add validation and error handling
-- [ ] T017 [US1] Add logging for user story 1 operations
+- [ ] T012 [P] [Models] [US1] Create [Entity1] model in src/models/[entity1].py
+- [ ] T013 [P] [Models] [US1] Create [Entity2] model in src/models/[entity2].py
+- [ ] T014 [Services] [US1] Implement [Service] in src/services/[service].py (depends on T012, T013)
+- [ ] T015 [API] [US1] Implement [endpoint/feature] in src/[location]/[file].py
+- [ ] T016 [Services] [US1] Add validation and error handling
+- [ ] T017 [Logging] [US1] Add logging for user story 1 operations
+
+### Module Documentation Updates for User Story 1
+
+- [ ] T018 [P] [Models] [US1] Update src/models/README.md with new entities and usage examples
+- [ ] T019 [P] [Models] [US1] Update src/models/AGENT_INSTRUCTION.md with validation rules
+- [ ] T020 [P] [Services] [US1] Update src/services/README.md with new service responsibilities
+- [ ] T021 [P] [Services] [US1] Update src/services/AGENT_INSTRUCTION.md with testing requirements
 
 **Checkpoint**: At this point, User Story 1 should be fully functional and testable independently
 

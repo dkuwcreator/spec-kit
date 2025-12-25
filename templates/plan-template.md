@@ -36,17 +36,51 @@
 ## Semantic Architecture Plan *(Required)*
 
 <!--
-  CRITICAL: Map this feature to Semantic Modules and document meaning parity requirements.
-  This ensures documentation stays synchronized with code changes.
+  CRITICAL: Map this feature to Semantic Modules using tool-agnostic language.
+  This section defines the semantic topology BEFORE task breakdown.
   
   Reference: https://github.com/dkuwcreator/Semantic-Architecture
 -->
 
+### Semantic Map
+
+<!--
+  Define the module topology for this feature.
+  This map guides all implementation and ensures bounded context discipline.
+-->
+
+**Clusters** (logical groupings of related modules):
+
+- **[Cluster Name]**: [Purpose and scope]
+  - Modules: [List module names in this cluster]
+  - Cluster Responsibility: [What this cluster handles]
+
+**Modules** (atomic bounded contexts):
+
+- **[Module Name]** (`[path/in/build/space]`):
+  - **Responsibility**: [Single clear purpose]
+  - **Boundaries**: [What this module does and does NOT do]
+  - **Interfaces**: [How it interacts with other modules]
+  - **Agent Scope**: [Local/Cluster/System - what level of agent can modify this]
+  - **Status**: [NEW/EXISTING/MODIFIED]
+
+**Module Dependencies** (directed graph):
+
+```
+[Module A] ──→ [Module B]  (dependency relationship)
+[Module C] ──→ [Module D]  (dependency relationship)
+```
+
+**Boundary Violations** (if any):
+
+- [List any cross-cluster changes and justification]
+- [Escalation required: YES/NO]
+
 ### Modules Impacted
 
 <!--
-  List each Semantic Module that will be modified by this feature.
-  For each module, specify what changes are planned.
+  For each module being modified, specify planned changes.
+  This section provides implementation details for the modules in the Semantic Map.
 -->
 
 - **[Module 1 Path/Name]**:

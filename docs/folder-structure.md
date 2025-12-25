@@ -1,19 +1,119 @@
-# Spec Kit Folder Structure Guide
+# Semantic Architecture: Artifact Spaces in Spec Kit
 
-This document clarifies the purpose of each folder in a Spec Kit project and where different types of files belong.
+This guide explains how Semantic Architecture principles map to folder structure in Spec Kit projects.
 
-## Critical Distinction
+## The Core Mental Model: Three Artifact Spaces
 
-**Spec Kit maintains TWO separate hierarchies:**
+Semantic Architecture organizes development around **three artifact spaces**, regardless of tooling:
 
-1. **Design Documents** (`specs/` folder) - Specifications for what to build
-2. **Application Code** (repository root) - Implementation of the application
+1. **Design Space** - Requirements and specifications (immutable during implementation)
+2. **Build Space** - Application code and tests (where implementation happens)
+3. **Module Space** - Code co-located with documentation (prevents semantic drift)
 
-**NEVER implement application features in the specs folder or other special-purpose folders.**
+This is a **tool-agnostic** mental model. Spec Kit is one concrete implementation that maps these spaces to specific folders.
 
-## Folder Hierarchy
+**Reference**: [Semantic Architecture Repository](https://github.com/dkuwcreator/Semantic-Architecture)
 
-### Design Documents (Read-Only During Implementation)
+## How Spec Kit Maps the Spaces
+
+### Design Space → `FEATURE_DIR` (typically `specs/###-feature-name/`)
+
+**What it contains**: Requirements, specifications, contracts, research
+
+```text
+specs/###-feature-name/          # Design Space in Spec Kit
+├── spec.md                      # What to build (functional requirements)
+├── plan.md                      # How to build (architecture, tech stack)
+├── tasks.md                     # Step-by-step breakdown
+├── research.md                  # Technical decisions and alternatives
+├── data-model.md                # Entity definitions
+├── semantic-map.md              # Module topology (NEW - see plan template)
+├── contracts/                   # API specifications (OpenAPI, GraphQL)
+└── checklists/                  # Quality verification
+```
+
+**Purpose**: Describes WHAT to build and WHY
+
+**Rule**: **Read-Only during implementation** (except tasks.md to mark complete)
+
+**Created by**: `/speckit.specify`, `/speckit.plan`, `/speckit.tasks`, `/speckit.checklist`
+
+**Used by**: Implementation agents read these to understand requirements
+
+### Build Space → Repository/Application Root
+
+**What it contains**: The actual product being built
+
+```text
+Repository Root/                 # Build Space in Spec Kit
+├── src/                        # Application source code
+│   ├── models/                # Data models
+│   ├── services/              # Business logic
+│   ├── api/                   # API endpoints
+│   └── ...
+├── tests/                     # Test suites
+│   ├── unit/
+│   ├── integration/
+│   └── contract/
+├── docs/                      # User documentation
+└── config/                    # Configuration files
+```
+
+**Purpose**: Implementation target - where ALL code changes happen
+
+**Rule**: **Mutable** - this is where implementation tasks create/modify files
+
+**Structure**: Defined in plan.md based on project type (single/web/mobile)
+
+### Module Space → Co-located within Build Space
+
+**What it contains**: Module code + documentation together
+
+```text
+src/<module>/                    # Module Space (within Build Space)
+├── README.md                   # Human intent: what/why, responsibilities, invariants
+├── AGENT_INSTRUCTION.md        # AI guidance: boundaries, allowed edits, testing
+├── <module_code>.py            # Module implementation
+├── __init__.py
+└── ...
+```
+
+**Purpose**: Prevents semantic drift by keeping code and meaning together
+
+**Rule**: **Documentation MUST be updated when module behavior changes** (same commit)
+
+**Examples**:
+- `src/auth/` module: auth code + README.md + AGENT_INSTRUCTION.md
+- `backend/src/api/` module: API code + README.md + AGENT_INSTRUCTION.md
+- `ios/UserProfile/` module: iOS code + README.md + AGENT_INSTRUCTION.md
+
+## Tool-Agnostic Principles (Not Spec Kit Specific)
+
+These principles apply regardless of what tool you use:
+
+1. **Design Space is immutable during implementation**
+   - Prevents scope creep
+   - Maintains requirement stability
+   - Spec Kit: `specs/` folder
+
+2. **Build Space is where implementation happens**
+   - All code changes target Build Space
+   - Never implement in Design Space
+   - Spec Kit: Repository root
+
+3. **Module Space co-locates code and meaning**
+   - README.md explains human intent
+   - AGENT_INSTRUCTION.md guides AI agents
+   - Both live WITH the code they describe
+   - Spec Kit: Modules in src/, backend/, etc.
+
+4. **Agents operate within bounded context**
+   - Local Module Agent: single module only
+   - Cluster Agent: multiple related modules
+   - System Agent: cross-cutting changes
+   - Escalation required when expanding scope
+
+## Spec Kit-Specific Implementation Details
 
 ```text
 specs/

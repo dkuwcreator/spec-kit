@@ -42,16 +42,46 @@
 
 ## Semantic Architecture (Meaning-First Development)
 
-### Definition: Semantic Modules
+**Reference**: [Semantic Architecture](https://github.com/dkuwcreator/Semantic-Architecture)
 
-**Semantic Modules** are the atomic bounded contexts for safe Human–AI collaboration. Each module encapsulates:
+### Core Principle: Operate Where You Have Full Context
 
-- **Clear responsibilities**: Explicit purpose and scope
-- **Invariants**: Non-negotiable behavioral guarantees
-- **Boundaries**: What is inside vs. outside the module
-- **Interfaces**: How the module interacts with other modules
+Work is organized into **Semantic Modules** – bounded cognitive units that carry both code and meaning. Agents operate within a single module unless explicitly escalating to broader scope.
 
-**Required artifacts per module**:
+### Artifact Spaces (Tool-Agnostic)
+
+Development artifacts live in three distinct spaces:
+
+1. **Design Space (Read-Only)**:
+   - Contains specifications, plans, contracts, research
+   - Describes WHAT to build and WHY
+   - **Immutable during implementation** (except progress tracking)
+   - In Spec Kit: maps to `FEATURE_DIR` (typically `specs/<feature>/`)
+
+2. **Build Space (Mutable)**:
+   - Contains application code, tests, runtime configuration
+   - The actual product being built
+   - Where ALL implementation happens
+   - In Spec Kit: maps to repository/application root
+
+3. **Module Space (Co-located Meaning)**:
+   - Module code + documentation live together
+   - Each module includes README.md + AGENT_INSTRUCTION.md alongside its code
+   - Prevents semantic drift through proximity
+   - In Spec Kit: modules live in Build Space (e.g., `src/<module>/`)
+
+**Rule**: Design Space is read-only. Implementation happens in Build Space. Module documentation is co-located in Build Space.
+
+### Semantic Modules: The Atomic Bounded Context
+
+**Semantic Modules** are the fundamental unit for safe Human–AI collaboration. Each module:
+
+- **Has clear responsibilities**: Explicit purpose and scope
+- **Declares invariants**: Non-negotiable behavioral guarantees
+- **Defines boundaries**: What is inside vs. outside the module
+- **Specifies interfaces**: How the module interacts with others
+
+**Required artifacts per module** (co-located with code):
 
 - **README.md**: Human intent documentation
   - What the module does and why it exists
@@ -63,7 +93,29 @@
   - Module boundaries and forbidden changes
   - Testing requirements and verification steps
 
-**Reference**: [Semantic Architecture](https://github.com/dkuwcreator/Semantic-Architecture)
+### Agent Scope Discipline
+
+Agents must operate within their authorized scope:
+
+1. **Local Module Agent** (Default):
+   - Can only modify one semantic module
+   - Must update module's README.md and AGENT_INSTRUCTION.md when changing behavior
+   - Operates where full context is available
+
+2. **Cluster Agent**:
+   - May coordinate changes across modules in the same cluster
+   - Requires explicit justification for multi-module scope
+   - Must document inter-module dependencies
+
+3. **System Agent**:
+   - Allowed to refactor cross-cutting architecture
+   - Requires escalation and additional review
+   - Must provide migration paths for affected modules
+
+**Escalation Rule**: When a change requires broader scope than authorized, agent MUST:
+- Document why single-module approach is insufficient
+- Map all affected modules and dependencies
+- Request explicit approval before proceeding
 
 ### Bounded Context Rules
 
