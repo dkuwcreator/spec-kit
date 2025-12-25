@@ -20,9 +20,17 @@ description: "Task list template for feature implementation"
 
 ## Path Conventions
 
+**CRITICAL**: All implementation tasks target the **repository root**, NOT the specs folder.
+
+- **Design documents** live in: `/specs/[###-feature-name]/` (spec.md, plan.md, tasks.md, etc.)
+- **Application code** lives at: **Repository root** (src/, tests/, etc.)
+- **Special folders** (`.github/`, `.vscode/`, `specs/`, `templates/`, `memory/`, `scripts/`) have distinct purposes - do NOT implement application features in these folders
+
+**Application Code Structure** (based on project type from plan.md):
+
 - **Single project**: `src/`, `tests/` at repository root
-- **Web app**: `backend/src/`, `frontend/src/`
-- **Mobile**: `api/src/`, `ios/src/` or `android/src/`
+- **Web app**: `backend/src/`, `frontend/src/` at repository root
+- **Mobile**: `api/src/`, `ios/src/` or `android/src/` at repository root
 - Paths shown below assume single project - adjust based on plan.md structure
 
 <!-- 

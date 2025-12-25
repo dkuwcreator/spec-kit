@@ -13,6 +13,28 @@ $ARGUMENTS
 
 You **MUST** consider the user input before proceeding (if not empty).
 
+## Critical Path Understanding
+
+**IMPORTANT**: Understand the folder structure before implementing:
+
+- **Design Documents**: Located in `FEATURE_DIR` (specs/###-feature-name/)
+  - spec.md, plan.md, tasks.md, data-model.md, contracts/, research.md, quickstart.md
+  - These are READ to understand what to build
+  - Only update tasks.md to mark tasks complete [x]
+
+- **Application Code**: Located at **repository root**
+  - src/, tests/, backend/, frontend/, etc. (structure from plan.md)
+  - This is where ALL implementation happens
+  - Create/modify files here based on tasks.md, NOT in specs folder
+
+- **Special Folders**: Do NOT implement application features here
+  - `.github/` - GitHub workflows (can modify if needed for CI/CD)
+  - `.vscode/` - Editor settings (can modify if needed)
+  - `specs/` - Feature specifications (design documents only)
+  - `templates/` - Spec Kit templates (do NOT modify)
+  - `memory/` - Constitution (do NOT modify during implementation)
+  - `scripts/` - Spec Kit utilities (do NOT modify)
+
 ## Outline
 
 1. Run `{SCRIPT}` from repo root and parse FEATURE_DIR and AVAILABLE_DOCS list. All paths must be absolute. For single quotes in args like "I'm Groot", use escape syntax: e.g 'I'\''m Groot' (or double-quote if possible: "I'm Groot").

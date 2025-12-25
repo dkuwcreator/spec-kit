@@ -22,6 +22,28 @@ $ARGUMENTS
 
 You **MUST** consider the user input before proceeding (if not empty).
 
+## Critical Path Understanding
+
+**IMPORTANT**: Understand the folder structure before generating tasks:
+
+- **Design Documents**: Located in `FEATURE_DIR` (specs/###-feature-name/)
+  - spec.md, plan.md, tasks.md, data-model.md, contracts/, research.md, quickstart.md
+  - These are READ ONLY - tasks do NOT modify files in FEATURE_DIR
+
+- **Application Code**: Located at **repository root**
+  - src/, tests/, backend/, frontend/, etc. (structure defined in plan.md)
+  - This is where ALL implementation tasks target their file paths
+  - Tasks create/modify files here, NOT in specs folder
+
+- **Special Folders**: Have distinct purposes
+  - `.github/` - GitHub workflows and configuration
+  - `.vscode/` - Editor settings
+  - `specs/` - Feature specifications (design documents only)
+  - `templates/` - Spec Kit templates
+  - `memory/` - Constitution and project memory
+  - `scripts/` - Spec Kit utility scripts
+  - **Do NOT generate tasks that implement application features in these folders**
+
 ## Outline
 
 1. **Setup**: Run `{SCRIPT}` from repo root and parse FEATURE_DIR and AVAILABLE_DOCS list. All paths must be absolute. For single quotes in args like "I'm Groot", use escape syntax: e.g 'I'\''m Groot' (or double-quote if possible: "I'm Groot").
@@ -46,14 +68,14 @@ You **MUST** consider the user input before proceeding (if not empty).
 
 4. **Generate tasks.md**: Use `templates/tasks-template.md` as structure, fill with:
    - Correct feature name from plan.md
-   - Phase 1: Setup tasks (project initialization)
+   - Phase 1: Setup tasks (project initialization at repository root)
    - Phase 2: Foundational tasks (blocking prerequisites for all user stories)
    - Phase 3+: One phase per user story (in priority order from spec.md)
    - Each phase includes: story goal, independent test criteria, tests (if requested), implementation tasks
    - **Phase N: Semantic Architecture Compliance** (REQUIRED - see template)
    - Phase N+1: Polish & cross-cutting concerns
    - All tasks must follow the strict checklist format (see Task Generation Rules below)
-   - Clear file paths for each task
+   - **CRITICAL**: File paths in tasks MUST target repository root (src/, tests/, etc.), NOT the specs folder
    - Dependencies section showing story completion order
    - Parallel execution examples per story
    - Implementation strategy section (MVP first, incremental delivery)

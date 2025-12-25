@@ -134,28 +134,46 @@ For each impacted module:
 
 ## Project Structure
 
-### Documentation (this feature)
+**CRITICAL**: This section defines TWO separate folder hierarchies:
+
+1. **Design Documents** (specs/ folder) - Where specifications live
+2. **Application Code** (repository root) - Where implementation happens
+
+### Documentation (Design Artifacts Only)
+
+**Location**: `specs/[###-feature]/` (NOT where implementation happens)
 
 ```text
 specs/[###-feature]/
+├── spec.md              # Feature specification (/speckit.specify command output)
 ├── plan.md              # This file (/speckit.plan command output)
 ├── research.md          # Phase 0 output (/speckit.plan command)
 ├── data-model.md        # Phase 1 output (/speckit.plan command)
 ├── quickstart.md        # Phase 1 output (/speckit.plan command)
 ├── contracts/           # Phase 1 output (/speckit.plan command)
+├── checklists/          # Quality checklists (/speckit.checklist command)
 └── tasks.md             # Phase 2 output (/speckit.tasks command - NOT created by /speckit.plan)
 ```
 
-### Source Code (repository root)
+**Purpose**: Design documents that describe WHAT to build. These are READ by implementation agents but NOT modified during implementation (except tasks.md to mark tasks complete).
+
+### Application Code (Implementation Target)
+
+**Location**: Repository root (where ALL implementation tasks target)
+
 <!--
   ACTION REQUIRED: Replace the placeholder tree below with the concrete layout
   for this feature. Delete unused options and expand the chosen structure with
   real paths (e.g., apps/admin, packages/something). The delivered plan must
   not include Option labels.
+  
+  IMPORTANT: All paths below are relative to REPOSITORY ROOT, NOT the specs folder.
+  Implementation tasks in tasks.md will create/modify files at these paths.
 -->
 
 ```text
 # [REMOVE IF UNUSED] Option 1: Single project (DEFAULT)
+# All paths relative to repository root
 src/
 ├── models/
 ├── services/
@@ -168,6 +186,7 @@ tests/
 └── unit/
 
 # [REMOVE IF UNUSED] Option 2: Web application (when "frontend" + "backend" detected)
+# All paths relative to repository root
 backend/
 ├── src/
 │   ├── models/
@@ -183,6 +202,7 @@ frontend/
 └── tests/
 
 # [REMOVE IF UNUSED] Option 3: Mobile + API (when "iOS/Android" detected)
+# All paths relative to repository root
 api/
 └── [same as backend above]
 
@@ -190,8 +210,10 @@ ios/ or android/
 └── [platform-specific structure: feature modules, UI flows, platform tests]
 ```
 
+**Purpose**: Actual application code that will be created/modified by implementation tasks. This is where the application being built lives, NOT in the specs folder.
+
 **Structure Decision**: [Document the selected structure and reference the real
-directories captured above]
+directories captured above. Confirm all paths are relative to repository root.]
 
 ## Complexity Tracking
 
