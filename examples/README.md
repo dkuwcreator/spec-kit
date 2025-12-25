@@ -35,7 +35,7 @@ The script demonstrates all five MCP tools:
 
 ### Expected Output
 
-```
+```text
 === Spec Kit MCP Client Example ===
 Connecting to specify-mcp server...
 

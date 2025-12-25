@@ -49,11 +49,13 @@ List all available Spec Kit templates with their IDs and descriptions.
 **Parameters:** None
 
 **Returns:** JSON object containing:
+
 - `templates`: Array of available artifact templates
 - `command_templates`: Array of slash command templates
 - `version`: Spec Kit version
 
 **Example:**
+
 ```json
 {
   "templates": [
@@ -74,12 +76,14 @@ List all available Spec Kit templates with their IDs and descriptions.
 Render a Spec Kit template with provided variables.
 
 **Parameters:**
+
 - `template_id` (required): Template ID - one of: `spec`, `plan`, `tasks`, `checklist`, `constitution`
 - `variables` (optional): Object with variable substitutions (e.g., `{"PROJECT_NAME": "MyApp"}`)
 
 **Returns:** Rendered template content as text
 
 **Example:**
+
 ```json
 {
   "template_id": "spec",
@@ -95,16 +99,19 @@ Render a Spec Kit template with provided variables.
 Validate consistency between Spec Kit artifacts (spec, plan, tasks).
 
 **Parameters:**
+
 - `spec_content` (required): Content of spec.md file
 - `plan_content` (optional): Content of plan.md file
 - `tasks_content` (optional): Content of tasks.md file
 
 **Returns:** JSON object with:
+
 - `status`: "valid" or "issues_found"
 - `findings`: Array of validation findings
 - `timestamp`: ISO 8601 timestamp
 
 **Example:**
+
 ```json
 {
   "status": "issues_found",
@@ -121,6 +128,7 @@ Validate consistency between Spec Kit artifacts (spec, plan, tasks).
 Generate a quality checklist tailored to project context.
 
 **Parameters:**
+
 - `project_name` (required): Name of the project
 - `tech_stack` (optional): Technology stack (e.g., "React + Node.js")
 - `focus_areas` (optional): Array of focus areas (e.g., `["security", "performance"]`)
@@ -128,6 +136,7 @@ Generate a quality checklist tailored to project context.
 **Returns:** Formatted checklist as markdown text
 
 **Example:**
+
 ```json
 {
   "project_name": "TaskManager",
@@ -141,11 +150,13 @@ Generate a quality checklist tailored to project context.
 Get a Spec Kit slash command template.
 
 **Parameters:**
+
 - `command_name` (required): Command name - one of: `specify`, `plan`, `tasks`, `implement`, `clarify`, `analyze`, `checklist`, `constitution`, `taskstoissues`
 
 **Returns:** Command template content as text
 
 **Example:**
+
 ```json
 {
   "command_name": "specify"
@@ -170,7 +181,7 @@ Add to your Claude Desktop configuration (`~/Library/Application Support/Claude/
 
 Restart Claude Desktop. You can now use Spec Kit tools in your conversations:
 
-```
+```text
 Use the speckit_list_templates tool to show me available templates
 ```
 
@@ -264,20 +275,21 @@ For production deployments, consider:
 
 ## Comparison: CLI vs MCP Server
 
-| Feature | CLI (`specify`) | MCP Server (`specify-mcp`) |
-|---------|-----------------|----------------------------|
-| **Installation** | Standalone | Requires MCP-compatible client |
-| **Workflow** | Interactive commands | Tool-based API calls |
-| **File operations** | Creates/modifies files | Returns content (client applies) |
-| **Integration** | Direct command line | Any MCP client |
-| **Use case** | Bootstrap projects | AI-assisted development |
-| **State management** | Local file system | Stateless (client manages) |
+| Feature              | CLI (`specify`)                | MCP Server (`specify-mcp`)         |
+|----------------------|--------------------------------|------------------------------------|
+| **Installation**     | Standalone                     | Requires MCP-compatible client     |
+| **Workflow**         | Interactive commands           | Tool-based API calls               |
+| **File operations**  | Creates/modifies files         | Returns content (client applies)   |
+| **Integration**      | Direct command line            | Any MCP client                     |
+| **Use case**         | Bootstrap projects             | AI-assisted development            |
+| **State management** | Local file system              | Stateless (client manages)         |
 
 ## Best Practices
 
 ### When to use the MCP server
 
 Use the MCP server when:
+
 - Integrating Spec Kit into AI-assisted workflows
 - Building custom tools that leverage Spec Kit templates
 - Need standardized, discoverable access to Spec Kit capabilities
@@ -286,6 +298,7 @@ Use the MCP server when:
 ### When to use the CLI
 
 Use the CLI when:
+
 - Bootstrapping new projects
 - Managing `.specify/` structure
 - Running standalone commands
@@ -319,6 +332,7 @@ Ensure your MCP client is configured correctly and has restarted after configura
 ### Template not found errors
 
 The server looks for templates in these locations (in order):
+
 1. Current working directory (`./templates/`)
 2. Package installation directory
 3. Falls back to current directory
