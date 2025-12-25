@@ -6,6 +6,8 @@ This fork of GitHub Spec Kit integrates **Semantic Architecture** principles to 
 
 **Reference**: [Semantic Architecture Repository](https://github.com/dkuwcreator/Semantic-Architecture)
 
+**Related**: [Folder Structure Guide](./folder-structure.md) - Understanding where design documents and application code belong in Spec Kit
+
 ## What is Semantic Architecture?
 
 Semantic Architecture is a development methodology based on these key principles:
@@ -29,9 +31,13 @@ Semantic Architecture is a development methodology based on these key principles
 
 A **Semantic Module** is the fundamental unit for safe Human–AI collaboration. Each module consists of:
 
+**IMPORTANT**: Module documentation lives WITH the module code at the repository root (e.g., `src/auth/README.md`), NOT in the specs folder. See [Folder Structure Guide](./folder-structure.md) for details.
+
 ### Required Artifacts
 
 #### README.md (Human Intent)
+
+**Location**: Next to module code (e.g., `src/auth/README.md`, `backend/src/api/README.md`)
 
 Documents what the module does and why it exists:
 
@@ -41,6 +47,8 @@ Documents what the module does and why it exists:
 - **Dependencies**: What the module requires from other modules
 
 #### AGENT_INSTRUCTION.md (AI Guidance)
+
+**Location**: Next to module code (e.g., `src/auth/AGENT_INSTRUCTION.md`, `backend/src/api/AGENT_INSTRUCTION.md`)
 
 Guides AI agents on how to safely work with the module:
 
@@ -248,22 +256,24 @@ The checklist command now generates items to verify:
 
 ### Meaning Parity Updates
 
-**auth/login/README.md**:
+**Note**: Module documentation lives at repository root with the module code. See [Folder Structure Guide](./folder-structure.md).
+
+**src/auth/login/README.md** (at repository root):
 - Document OAuth2 configuration
 - Show example login flows
 - Update integration patterns
 
-**auth/login/AGENT_INSTRUCTION.md**:
+**src/auth/login/AGENT_INSTRUCTION.md** (at repository root):
 - Add OAuth2 validation rules
 - Define testing requirements
 - Update allowed edits
 
-**auth/providers/README.md** (NEW):
+**src/auth/providers/README.md** (NEW - at repository root):
 - Define module purpose
 - Document provider interface
 - Show usage examples
 
-**auth/providers/AGENT_INSTRUCTION.md** (NEW):
+**src/auth/providers/AGENT_INSTRUCTION.md** (NEW - at repository root):
 - Define module boundaries
 - Specify safety constraints
 - List testing requirements
@@ -271,13 +281,15 @@ The checklist command now generates items to verify:
 
 #### Step 3: Generate Tasks with Doc Updates
 
+**Note**: All paths below are relative to repository root, NOT the specs folder. See [Folder Structure Guide](./folder-structure.md).
+
 ```markdown
 ## Phase 4: Semantic Architecture Compliance
 
-- [ ] T032 [P] Update auth/login/README.md
-- [ ] T033 [P] Update auth/login/AGENT_INSTRUCTION.md
-- [ ] T034 [P] Create auth/providers/README.md
-- [ ] T035 [P] Create auth/providers/AGENT_INSTRUCTION.md
+- [ ] T032 [P] Update src/auth/login/README.md (at repository root)
+- [ ] T033 [P] Update src/auth/login/AGENT_INSTRUCTION.md (at repository root)
+- [ ] T034 [P] Create src/auth/providers/README.md (at repository root)
+- [ ] T035 [P] Create src/auth/providers/AGENT_INSTRUCTION.md (at repository root)
 - [ ] T036 Verify spec ↔ plan ↔ tasks ↔ code alignment
 - [ ] T037 Meaning parity check
 ```

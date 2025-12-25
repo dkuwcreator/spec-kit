@@ -13,6 +13,36 @@ $ARGUMENTS
 
 You **MUST** consider the user input before proceeding (if not empty).
 
+## Artifact Spaces (Semantic Architecture)
+
+**IMPORTANT**: Understand the three artifact spaces before implementing:
+
+1. **Design Space (Read-Only)**:
+   - Contains: spec.md, plan.md, tasks.md, contracts/, data-model.md, research.md
+   - Location: `FEATURE_DIR` from script output
+   - **Purpose**: Requirements and specifications (read to understand WHAT to build)
+   - **Rule**: Only update tasks.md to mark tasks complete [x]
+
+2. **Build Space (Implementation Target)**:
+   - Contains: Application code, tests, configuration
+   - Location: Repository/application root
+   - **Purpose**: The actual product being built
+   - **Rule**: Create/modify ALL implementation files here (NOT in Design Space)
+   - Structure: Defined in plan.md based on project organization
+
+3. **Module Space (Co-located Meaning)**:
+   - Contains: Module code + README.md + AGENT_INSTRUCTION.md together
+   - Location: Within Build Space (per plan.md structure)
+   - **Purpose**: Code and documentation live together to prevent semantic drift
+   - **Rule**: Update module docs when changing module behavior (same commit)
+
+**Agent Scope**:
+- Operate as **Local Module Agent** by default (single module only)
+- Escalate if changes require **Cluster Agent** (multiple modules) or **System Agent** (cross-cutting)
+- Document scope violations and justification
+
+**Note**: Semantic Architecture doesn't prescribe specific folder names. Structures like `src/`, `tests/`, `backend/` are examples that emerge from organizing code. Your plan.md defines the actual structure for your project.
+
 ## Outline
 
 1. Run `{SCRIPT}` from repo root and parse FEATURE_DIR and AVAILABLE_DOCS list. All paths must be absolute. For single quotes in args like "I'm Groot", use escape syntax: e.g 'I'\''m Groot' (or double-quote if possible: "I'm Groot").

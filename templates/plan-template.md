@@ -36,17 +36,51 @@
 ## Semantic Architecture Plan *(Required)*
 
 <!--
-  CRITICAL: Map this feature to Semantic Modules and document meaning parity requirements.
-  This ensures documentation stays synchronized with code changes.
+  CRITICAL: Map this feature to Semantic Modules using tool-agnostic language.
+  This section defines the semantic topology BEFORE task breakdown.
   
   Reference: https://github.com/dkuwcreator/Semantic-Architecture
 -->
 
+### Semantic Map
+
+<!--
+  Define the module topology for this feature.
+  This map guides all implementation and ensures bounded context discipline.
+-->
+
+**Clusters** (logical groupings of related modules):
+
+- **[Cluster Name]**: [Purpose and scope]
+  - Modules: [List module names in this cluster]
+  - Cluster Responsibility: [What this cluster handles]
+
+**Modules** (atomic bounded contexts):
+
+- **[Module Name]** (`[path/in/build/space]`):
+  - **Responsibility**: [Single clear purpose]
+  - **Boundaries**: [What this module does and does NOT do]
+  - **Interfaces**: [How it interacts with other modules]
+  - **Agent Scope**: [Local/Cluster/System - what level of agent can modify this]
+  - **Status**: [NEW/EXISTING/MODIFIED]
+
+**Module Dependencies** (directed graph):
+
+```
+[Module A] ──→ [Module B]  (dependency relationship)
+[Module C] ──→ [Module D]  (dependency relationship)
+```
+
+**Boundary Violations** (if any):
+
+- [List any cross-cluster changes and justification]
+- [Escalation required: YES/NO]
+
 ### Modules Impacted
 
 <!--
-  List each Semantic Module that will be modified by this feature.
-  For each module, specify what changes are planned.
+  For each module being modified, specify planned changes.
+  This section provides implementation details for the modules in the Semantic Map.
 -->
 
 - **[Module 1 Path/Name]**:
@@ -134,64 +168,91 @@ For each impacted module:
 
 ## Project Structure
 
-### Documentation (this feature)
+**CRITICAL**: This section defines TWO separate folder hierarchies:
+
+1. **Design Documents** (specs/ folder) - Where specifications live
+2. **Application Code** (repository root) - Where implementation happens
+
+### Documentation (Design Artifacts Only)
+
+**Location**: `specs/[###-feature]/` (NOT where implementation happens)
 
 ```text
 specs/[###-feature]/
+├── spec.md              # Feature specification (/speckit.specify command output)
 ├── plan.md              # This file (/speckit.plan command output)
 ├── research.md          # Phase 0 output (/speckit.plan command)
 ├── data-model.md        # Phase 1 output (/speckit.plan command)
 ├── quickstart.md        # Phase 1 output (/speckit.plan command)
 ├── contracts/           # Phase 1 output (/speckit.plan command)
+├── checklists/          # Quality checklists (/speckit.checklist command)
 └── tasks.md             # Phase 2 output (/speckit.tasks command - NOT created by /speckit.plan)
 ```
 
-### Source Code (repository root)
+**Purpose**: Design documents that describe WHAT to build. These are READ by implementation agents but NOT modified during implementation (except tasks.md to mark tasks complete).
+
+### Application Code (Implementation Target)
+
+**Location**: Repository root (where ALL implementation tasks target)
+
 <!--
-  ACTION REQUIRED: Replace the placeholder tree below with the concrete layout
-  for this feature. Delete unused options and expand the chosen structure with
-  real paths (e.g., apps/admin, packages/something). The delivered plan must
-  not include Option labels.
+  ACTION REQUIRED: Replace the placeholder trees below with your project's actual structure.
+  Delete unused options. The delivered plan must not include Option labels.
+  
+  IMPORTANT: These are EXAMPLE STRUCTURES that commonly emerge when applying Semantic
+  Architecture principles. They are NOT requirements - organize your project based on
+  your specific needs, technology, and team preferences.
+  
+  All paths below are relative to REPOSITORY ROOT, NOT the specs folder.
+  Implementation tasks in tasks.md will create/modify files at these paths.
 -->
 
 ```text
-# [REMOVE IF UNUSED] Option 1: Single project (DEFAULT)
-src/
-├── models/
-├── services/
-├── cli/
-└── lib/
+# [REMOVE IF UNUSED] Option 1: Single project structure (example)
+# Common for libraries, CLI tools, simple applications
+# Organize modules directly at root or in organizational folders
 
-tests/
-├── contract/
-├── integration/
-└── unit/
+<modules>/               # Your semantic modules
+├── <module1>/          # Example module
+│   ├── README.md      # Module documentation
+│   ├── AGENT_INSTRUCTION.md
+│   └── [code files]
+└── <module2>/
 
-# [REMOVE IF UNUSED] Option 2: Web application (when "frontend" + "backend" detected)
+<tests>/                # Your test organization
+└── ...
+
+# [REMOVE IF UNUSED] Option 2: Layered structure (example)
+# Common for web applications with separate concerns
+# Shows backend/frontend separation
+
 backend/
-├── src/
-│   ├── models/
-│   ├── services/
-│   └── api/
-└── tests/
+├── <modules>/
+│   └── [your backend modules with README.md + AGENT_INSTRUCTION.md]
+└── <tests>/
 
 frontend/
-├── src/
-│   ├── components/
-│   ├── pages/
-│   └── services/
-└── tests/
+├── <modules>/
+│   └── [your frontend modules with README.md + AGENT_INSTRUCTION.md]
+└── <tests>/
 
-# [REMOVE IF UNUSED] Option 3: Mobile + API (when "iOS/Android" detected)
+# [REMOVE IF UNUSED] Option 3: Platform-specific structure (example)
+# Common for mobile applications with API
+# Shows platform separation
+
 api/
-└── [same as backend above]
+└── <modules>/
+    └── [your API modules with README.md + AGENT_INSTRUCTION.md]
 
 ios/ or android/
-└── [platform-specific structure: feature modules, UI flows, platform tests]
+└── <modules>/
+    └── [your platform modules with README.md + AGENT_INSTRUCTION.md]
 ```
 
+**Purpose**: Actual application code that will be created/modified by implementation tasks. This is where the application being built lives, NOT in the specs folder.
+
 **Structure Decision**: [Document the selected structure and reference the real
-directories captured above]
+directories captured above. Confirm all paths are relative to repository root.]
 
 ## Complexity Tracking
 
