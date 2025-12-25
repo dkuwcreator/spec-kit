@@ -1,0 +1,8 @@
+{
+    "mcpServers": {
+        "specify-mcp": {
+            "command": "specify-mcp",
+            "args": []
+        }
+    }
+}

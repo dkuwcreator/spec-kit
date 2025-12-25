@@ -17,9 +17,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - `speckit_validate_artifacts` - Cross-artifact consistency validation
   - `speckit_generate_checklist` - Generate tailored quality checklists
   - `speckit_get_command_template` - Get slash command templates
+- **Automatic MCP Configuration**: MCP configuration files are now automatically created during `specify init` for all supported editors
+  - `.vscode/mcp.json` - For VS Code
+  - `.cursor/mcp.json` - For Cursor
+  - `.windsurf/mcp.json` - For Windsurf
+  - `.claude/mcp.json` - For Claude Desktop (project-specific)
+- MCP configuration files are automatically merged (not overwritten) when re-initializing projects
 - MCP server documentation at `docs/mcp-server.md`
 - MCP server entry point: `specify-mcp`
 - Optional MCP dependencies via `pip install 'specify-cli[mcp]'`
+- Example MCP client script at `examples/mcp_client_example.py`
 
 ## [0.0.22] - 2025-11-07
 

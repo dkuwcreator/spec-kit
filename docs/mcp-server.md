@@ -38,6 +38,17 @@ uv pip install 'specify-cli[mcp]'
 specify-mcp --help
 ```
 
+### Automatic MCP Configuration
+
+When you initialize a new Spec Kit project with `specify init`, MCP configuration files are automatically created for supported editors:
+
+- **VS Code**: `.vscode/mcp.json`
+- **Cursor**: `.cursor/mcp.json`
+- **Windsurf**: `.windsurf/mcp.json`
+- **Claude Desktop**: `.claude/mcp.json`
+
+These configuration files are pre-configured to use the `specify-mcp` server and will be merged (not overwritten) if you re-initialize or update your project.
+
 ## Available MCP Tools
 
 The MCP server exposes the following tools:
@@ -165,7 +176,22 @@ Get a Spec Kit slash command template.
 
 ## Usage with MCP Clients
 
-### Claude Desktop
+### Automatic Configuration (Recommended)
+
+When you run `specify init`, MCP configuration files are automatically created for supported editors in your project:
+
+- `.vscode/mcp.json` - For VS Code
+- `.cursor/mcp.json` - For Cursor
+- `.windsurf/mcp.json` - For Windsurf
+- `.claude/mcp.json` - For Claude Desktop (project-specific)
+
+Simply open your project in the supported editor and the MCP server will be available.
+
+### Manual Configuration
+
+If you need to configure MCP manually or use a global configuration:
+
+#### Claude Desktop (Global)
 
 Add to your Claude Desktop configuration (`~/Library/Application Support/Claude/claude_desktop_config.json` on macOS):
 
@@ -185,19 +211,27 @@ Restart Claude Desktop. You can now use Spec Kit tools in your conversations:
 Use the speckit_list_templates tool to show me available templates
 ```
 
-### VS Code with MCP Extension
+#### VS Code with MCP Extension
 
-Install an MCP extension for VS Code, then configure:
+The `.vscode/mcp.json` file is automatically created when you run `specify init`. If you need to add it manually:
 
 ```json
 {
-  "mcp.servers": {
+  "mcpServers": {
     "specify-mcp": {
       "command": "specify-mcp"
     }
   }
 }
 ```
+
+#### Cursor
+
+The `.cursor/mcp.json` file is automatically created when you run `specify init`. Configuration format is the same as VS Code.
+
+#### Windsurf
+
+The `.windsurf/mcp.json` file is automatically created when you run `specify init`. Configuration format is the same as VS Code.
 
 ### Custom Integration
 

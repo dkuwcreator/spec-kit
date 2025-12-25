@@ -307,21 +307,32 @@ pip install 'specify-cli[mcp]'
 uv pip install 'specify-cli[mcp]'
 ```
 
+### Automatic MCP Configuration
+
+When you initialize a project with `specify init`, MCP configuration files are **automatically created** for supported editors:
+
+- `.vscode/mcp.json` - For VS Code
+- `.cursor/mcp.json` - For Cursor
+- `.windsurf/mcp.json` - For Windsurf
+- `.claude/mcp.json` - For Claude Desktop
+
+Simply open your project in the supported editor and the MCP server will be available—no manual configuration needed!
+
 ### Available MCP Tools
 
 The MCP server exposes these tools:
 
-| Tool | Description |
-|------|-------------|
-| `speckit_list_templates` | List available template IDs and versions |
-| `speckit_render_template` | Render templates with variables |
-| `speckit_validate_artifacts` | Cross-artifact consistency validation |
-| `speckit_generate_checklist` | Generate tailored quality checklists |
-| `speckit_get_command_template` | Get slash command templates |
+| Tool                            | Description                                   |
+|---------------------------------|-----------------------------------------------|
+| `speckit_list_templates`        | List available template IDs and versions      |
+| `speckit_render_template`       | Render templates with variables               |
+| `speckit_validate_artifacts`    | Cross-artifact consistency validation         |
+| `speckit_generate_checklist`    | Generate tailored quality checklists          |
+| `speckit_get_command_template`  | Get slash command templates                   |
 
-### Quick Start
+### Manual Configuration (Optional)
 
-Add to your Claude Desktop configuration (`~/Library/Application Support/Claude/claude_desktop_config.json`):
+If you need to configure Claude Desktop globally instead of per-project, add to your configuration (`~/Library/Application Support/Claude/claude_desktop_config.json`):
 
 ```json
 {
@@ -335,7 +346,7 @@ Add to your Claude Desktop configuration (`~/Library/Application Support/Claude/
 
 Restart Claude Desktop and use Spec Kit tools in conversations:
 
-```
+```text
 Use the speckit_list_templates tool to show me available templates
 ```
 
