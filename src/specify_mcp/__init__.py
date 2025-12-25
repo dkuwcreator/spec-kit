@@ -86,12 +86,21 @@ def render_template(template_content: str, variables: dict[str, str]) -> str:
     """
     Render a template with the provided variables.
     
-    Simple string replacement for placeholders like [VARIABLE_NAME].
+    Supports multiple placeholder formats:
+    - [VARIABLE_NAME] with underscores
+    - [VARIABLE NAME] with spaces
     """
     result = template_content
     for key, value in variables.items():
-        placeholder = f"[{key}]"
-        result = result.replace(placeholder, value)
+        # Try with underscores
+        placeholder_underscore = f"[{key}]"
+        result = result.replace(placeholder_underscore, value)
+        
+        # Try with spaces (convert underscores to spaces)
+        key_with_spaces = key.replace("_", " ")
+        placeholder_spaces = f"[{key_with_spaces}]"
+        result = result.replace(placeholder_spaces, value)
+    
     return result
 
 def validate_spec_plan_consistency(spec_content: str, plan_content: str) -> list[str]:
