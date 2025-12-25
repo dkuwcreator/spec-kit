@@ -7,6 +7,20 @@ All notable changes to the Specify CLI and templates are documented here.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [Unreleased]
+
+### Added
+
+- **MCP Server**: Added optional MCP (Model Context Protocol) server that exposes Spec Kit capabilities as standardized tools
+  - `speckit_list_templates` - List available template IDs and versions
+  - `speckit_render_template` - Render templates with variables
+  - `speckit_validate_artifacts` - Cross-artifact consistency validation
+  - `speckit_generate_checklist` - Generate tailored quality checklists
+  - `speckit_get_command_template` - Get slash command templates
+- MCP server documentation at `docs/mcp-server.md`
+- MCP server entry point: `specify-mcp`
+- Optional MCP dependencies via `pip install 'specify-cli[mcp]'`
+
 ## [0.0.22] - 2025-11-07
 
 - Support for VS Code/Copilot agents, and moving away from prompts to proper agents with hand-offs.
