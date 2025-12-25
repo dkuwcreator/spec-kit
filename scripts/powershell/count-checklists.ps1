@@ -71,8 +71,12 @@ if (-not $FeatureDir) {
     $FeatureDir = $paths.FEATURE_DIR
 }
 
-# Normalize path
-$FeatureDir = Resolve-Path $FeatureDir -ErrorAction Stop
+# Validate and normalize path
+if (-not (Test-Path $FeatureDir -PathType Container)) {
+    Write-Output "ERROR: Feature directory not found: $FeatureDir"
+    exit 1
+}
+$FeatureDir = (Resolve-Path $FeatureDir).Path
 
 # Check if checklists directory exists
 $checklistsDir = Join-Path $FeatureDir "checklists"
@@ -118,12 +122,12 @@ foreach ($file in $checklistFiles) {
         continue
     }
     
-    # Count total items: lines matching "- [ ]" or "- [X]" or "- [x]"
-    $totalMatches = [regex]::Matches($content, '- \[([ Xx])\]')
+    # Count total items: lines matching "- [ ]" or "- [X]" or "- [x]" (with optional leading whitespace)
+    $totalMatches = [regex]::Matches($content, '(?m)^\s*- \[([ Xx])\]')
     $totalCount = $totalMatches.Count
     
-    # Count completed items: lines matching "- [X]" or "- [x]"
-    $completedMatches = [regex]::Matches($content, '- \[[Xx]\]')
+    # Count completed items: lines matching "- [X]" or "- [x]" (with optional leading whitespace)
+    $completedMatches = [regex]::Matches($content, '(?m)^\s*- \[[Xx]\]')
     $completedCount = $completedMatches.Count
     
     # Calculate incomplete
