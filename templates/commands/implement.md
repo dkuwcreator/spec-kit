@@ -18,12 +18,12 @@ You **MUST** consider the user input before proceeding (if not empty).
 1. Run `{SCRIPT}` from repo root and parse FEATURE_DIR and AVAILABLE_DOCS list. All paths must be absolute. For single quotes in args like "I'm Groot", use escape syntax: e.g 'I'\''m Groot' (or double-quote if possible: "I'm Groot").
 
 2. **Check checklists status** (if FEATURE_DIR/checklists/ exists):
-   - Scan all checklist files in the checklists/ directory
-   - For each checklist, count:
-     - Total items: All lines matching `- [ ]` or `- [X]` or `- [x]`
-     - Completed items: Lines matching `- [X]` or `- [x]`
-     - Incomplete items: Lines matching `- [ ]`
-   - Create a status table:
+   
+   Run the checklist counting script to check completion status:
+   - **Bash**: `scripts/bash/count-checklists.sh --feature-dir "$FEATURE_DIR"`
+   - **PowerShell**: `pwsh -NoProfile -ExecutionPolicy Bypass -File scripts/powershell/count-checklists.ps1 -FeatureDir "$FEATURE_DIR"`
+   
+   The script will output a status table like:
 
      ```text
      | Checklist | Total | Completed | Incomplete | Status |
@@ -33,18 +33,23 @@ You **MUST** consider the user input before proceeding (if not empty).
      | security.md | 6   | 6         | 0          | ✓ PASS |
      ```
 
-   - Calculate overall status:
-     - **PASS**: All checklists have 0 incomplete items
-     - **FAIL**: One or more checklists have incomplete items
+   The script calculates overall status:
+   - **PASS**: All checklists have 0 incomplete items (exit code 0)
+   - **FAIL**: One or more checklists have incomplete items (exit code 1)
+   - **NO_CHECKLISTS**: No checklists directory or files found (exit code 0)
 
-   - **If any checklist is incomplete**:
+   **Based on the script output:**
+   
+   - **If NO_CHECKLISTS**: Automatically proceed to step 3
+   
+   - **If overall status is FAIL** (any checklist has incomplete items):
      - Display the table with incomplete item counts
      - **STOP** and ask: "Some checklists are incomplete. Do you want to proceed with implementation anyway? (yes/no)"
      - Wait for user response before continuing
      - If user says "no" or "wait" or "stop", halt execution
      - If user says "yes" or "proceed" or "continue", proceed to step 3
 
-   - **If all checklists are complete**:
+   - **If overall status is PASS** (all checklists complete):
      - Display the table showing all checklists passed
      - Automatically proceed to step 3
 
