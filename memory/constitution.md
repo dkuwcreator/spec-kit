@@ -68,9 +68,12 @@ Development artifacts live in three distinct spaces:
    - Module code + documentation live together
    - Each module includes README.md + AGENT_INSTRUCTION.md alongside its code
    - Prevents semantic drift through proximity
-   - In Spec Kit: modules live in Build Space (e.g., `src/<module>/`)
+   - In Spec Kit: modules live in Build Space
+   - **Note**: Semantic Architecture doesn't prescribe folder names like `src/` or `tests/` - these are outcomes of applying the principles to organize code
 
 **Rule**: Design Space is read-only. Implementation happens in Build Space. Module documentation is co-located in Build Space.
+
+**Important**: Semantic Architecture defines the **principles** (bounded contexts, co-located meaning, agent scope), not the **folder structure**. Folder organization (like `src/`, `tests/`, `backend/`) emerges from applying these principles to your specific project.
 
 ### Semantic Modules: The Atomic Bounded Context
 

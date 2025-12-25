@@ -2,6 +2,15 @@
 
 This guide explains how Semantic Architecture principles map to folder structure in Spec Kit projects.
 
+## Critical Distinction: Principles vs. Implementation
+
+**Semantic Architecture defines principles, not folder structures.**
+
+- ✅ **Principles**: Artifact spaces, bounded contexts, co-located meaning, agent scope discipline
+- ❌ **NOT prescribed**: Folder names like `src/`, `tests/`, `backend/`, etc.
+
+**Important**: Structures like `src/` and `tests/` are **examples** that commonly emerge when organizing code according to Semantic Architecture principles. They are **outcomes**, not requirements. Your project defines its own structure in plan.md based on its specific needs.
+
 ## The Core Mental Model: Three Artifact Spaces
 
 Semantic Architecture organizes development around **three artifact spaces**, regardless of tooling:
@@ -44,37 +53,42 @@ specs/###-feature-name/          # Design Space in Spec Kit
 
 **What it contains**: The actual product being built
 
+**Example organization** (NOT prescribed - your plan.md defines the actual structure):
+
 ```text
 Repository Root/                 # Build Space in Spec Kit
-├── src/                        # Application source code
-│   ├── models/                # Data models
-│   ├── services/              # Business logic
-│   ├── api/                   # API endpoints
+├── [your code organization]    # Examples below show common patterns
+│   ├── [modules/]              # Your semantic modules
+│   ├── [components/]           # Your application structure
 │   └── ...
-├── tests/                     # Test suites
-│   ├── unit/
-│   ├── integration/
-│   └── contract/
-├── docs/                      # User documentation
-└── config/                    # Configuration files
+├── [your test organization]    # Where you organize tests
+│   └── ...
+├── docs/                       # User documentation
+└── config/                     # Configuration files
 ```
+
+**Common patterns that emerge** (examples only):
+- Code folders: `src/`, `lib/`, `app/`, `backend/`, `frontend/`, `api/`
+- Test folders: `tests/`, `test/`, `spec/`, `__tests__/`
+- Platform-specific: `ios/`, `android/`, `web/`, `mobile/`
 
 **Purpose**: Implementation target - where ALL code changes happen
 
 **Rule**: **Mutable** - this is where implementation tasks create/modify files
 
-**Structure**: Defined in plan.md based on project type (single/web/mobile)
+**Structure**: Defined in plan.md based on your project's specific needs and technology choices
 
 ### Module Space → Co-located within Build Space
 
 **What it contains**: Module code + documentation together
 
+**Example** (folder names will match your project's structure from plan.md):
+
 ```text
-src/<module>/                    # Module Space (within Build Space)
-├── README.md                   # Human intent: what/why, responsibilities, invariants
-├── AGENT_INSTRUCTION.md        # AI guidance: boundaries, allowed edits, testing
-├── <module_code>.py            # Module implementation
-├── __init__.py
+<your-module-location>/          # Module Space (within Build Space)
+├── README.md                    # Human intent: what/why, responsibilities, invariants
+├── AGENT_INSTRUCTION.md         # AI guidance: boundaries, allowed edits, testing
+├── <module_code>.*              # Module implementation
 └── ...
 ```
 
@@ -82,10 +96,12 @@ src/<module>/                    # Module Space (within Build Space)
 
 **Rule**: **Documentation MUST be updated when module behavior changes** (same commit)
 
-**Examples**:
-- `src/auth/` module: auth code + README.md + AGENT_INSTRUCTION.md
-- `backend/src/api/` module: API code + README.md + AGENT_INSTRUCTION.md
-- `ios/UserProfile/` module: iOS code + README.md + AGENT_INSTRUCTION.md
+**Examples** (showing different project structures - yours will match plan.md):
+- Module in flat structure: `auth/` with README.md + AGENT_INSTRUCTION.md + code
+- Module in layered structure: `backend/api/` with README.md + AGENT_INSTRUCTION.md + code
+- Module in platform structure: `ios/UserProfile/` with README.md + AGENT_INSTRUCTION.md + code
+
+**Note**: The folder names (`src/`, `backend/`, `ios/`, etc.) are project-specific choices, not Semantic Architecture requirements.
 
 ## Tool-Agnostic Principles (Not Spec Kit Specific)
 
@@ -105,7 +121,8 @@ These principles apply regardless of what tool you use:
    - README.md explains human intent
    - AGENT_INSTRUCTION.md guides AI agents
    - Both live WITH the code they describe
-   - Spec Kit: Modules in src/, backend/, etc.
+   - Spec Kit: Modules in Build Space (structure from plan.md)
+   - **Note**: Semantic Architecture prescribes co-location, not specific folder names
 
 4. **Agents operate within bounded context**
    - Local Module Agent: single module only

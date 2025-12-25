@@ -28,11 +28,11 @@ You **MUST** consider the user input before proceeding (if not empty).
    - Location: Repository/application root
    - **Purpose**: The actual product being built
    - **Rule**: Create/modify ALL implementation files here (NOT in Design Space)
-   - Structure: src/, tests/, backend/, frontend/, etc. (from plan.md)
+   - Structure: Defined in plan.md based on project organization
 
 3. **Module Space (Co-located Meaning)**:
    - Contains: Module code + README.md + AGENT_INSTRUCTION.md together
-   - Location: Within Build Space (e.g., src/<module>/)
+   - Location: Within Build Space (per plan.md structure)
    - **Purpose**: Code and documentation live together to prevent semantic drift
    - **Rule**: Update module docs when changing module behavior (same commit)
 
@@ -40,6 +40,8 @@ You **MUST** consider the user input before proceeding (if not empty).
 - Operate as **Local Module Agent** by default (single module only)
 - Escalate if changes require **Cluster Agent** (multiple modules) or **System Agent** (cross-cutting)
 - Document scope violations and justification
+
+**Note**: Semantic Architecture doesn't prescribe specific folder names. Structures like `src/`, `tests/`, `backend/` are examples that emerge from organizing code. Your plan.md defines the actual structure for your project.
 
 ## Outline
 

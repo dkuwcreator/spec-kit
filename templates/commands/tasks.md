@@ -37,15 +37,17 @@ You **MUST** consider the user input before proceeding (if not empty).
    - Location: Repository/application root
    - **Purpose**: The actual product being built
    - **Rule**: ALL implementation tasks create/modify files here
-   - Structure: src/, tests/, backend/, frontend/, etc. (defined in plan.md)
+   - Structure: Defined in plan.md based on project type and organization
 
 3. **Module Space (Co-located Meaning)**:
    - Contains: Module code + README.md + AGENT_INSTRUCTION.md together
-   - Location: Within Build Space (e.g., src/<module>/)
+   - Location: Within Build Space (organized per plan.md)
    - **Purpose**: Prevents semantic drift through proximity
    - **Rule**: Module documentation MUST be updated when module behavior changes
 
 **Key Principle**: Design Space describes requirements. Build Space contains implementation. Module Space co-locates code with meaning.
+
+**Note**: Semantic Architecture doesn't prescribe folder names like `src/` or `tests/`. These are examples of how projects commonly organize code when applying the principles. Your project structure is defined in plan.md based on your specific needs.
 
 ## Outline
 

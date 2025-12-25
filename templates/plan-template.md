@@ -196,52 +196,57 @@ specs/[###-feature]/
 **Location**: Repository root (where ALL implementation tasks target)
 
 <!--
-  ACTION REQUIRED: Replace the placeholder tree below with the concrete layout
-  for this feature. Delete unused options and expand the chosen structure with
-  real paths (e.g., apps/admin, packages/something). The delivered plan must
-  not include Option labels.
+  ACTION REQUIRED: Replace the placeholder trees below with your project's actual structure.
+  Delete unused options. The delivered plan must not include Option labels.
   
-  IMPORTANT: All paths below are relative to REPOSITORY ROOT, NOT the specs folder.
+  IMPORTANT: These are EXAMPLE STRUCTURES that commonly emerge when applying Semantic
+  Architecture principles. They are NOT requirements - organize your project based on
+  your specific needs, technology, and team preferences.
+  
+  All paths below are relative to REPOSITORY ROOT, NOT the specs folder.
   Implementation tasks in tasks.md will create/modify files at these paths.
 -->
 
 ```text
-# [REMOVE IF UNUSED] Option 1: Single project (DEFAULT)
-# All paths relative to repository root
-src/
-├── models/
-├── services/
-├── cli/
-└── lib/
+# [REMOVE IF UNUSED] Option 1: Single project structure (example)
+# Common for libraries, CLI tools, simple applications
+# Organize modules directly at root or in organizational folders
 
-tests/
-├── contract/
-├── integration/
-└── unit/
+<modules>/               # Your semantic modules
+├── <module1>/          # Example module
+│   ├── README.md      # Module documentation
+│   ├── AGENT_INSTRUCTION.md
+│   └── [code files]
+└── <module2>/
 
-# [REMOVE IF UNUSED] Option 2: Web application (when "frontend" + "backend" detected)
-# All paths relative to repository root
+<tests>/                # Your test organization
+└── ...
+
+# [REMOVE IF UNUSED] Option 2: Layered structure (example)
+# Common for web applications with separate concerns
+# Shows backend/frontend separation
+
 backend/
-├── src/
-│   ├── models/
-│   ├── services/
-│   └── api/
-└── tests/
+├── <modules>/
+│   └── [your backend modules with README.md + AGENT_INSTRUCTION.md]
+└── <tests>/
 
 frontend/
-├── src/
-│   ├── components/
-│   ├── pages/
-│   └── services/
-└── tests/
+├── <modules>/
+│   └── [your frontend modules with README.md + AGENT_INSTRUCTION.md]
+└── <tests>/
 
-# [REMOVE IF UNUSED] Option 3: Mobile + API (when "iOS/Android" detected)
-# All paths relative to repository root
+# [REMOVE IF UNUSED] Option 3: Platform-specific structure (example)
+# Common for mobile applications with API
+# Shows platform separation
+
 api/
-└── [same as backend above]
+└── <modules>/
+    └── [your API modules with README.md + AGENT_INSTRUCTION.md]
 
 ios/ or android/
-└── [platform-specific structure: feature modules, UI flows, platform tests]
+└── <modules>/
+    └── [your platform modules with README.md + AGENT_INSTRUCTION.md]
 ```
 
 **Purpose**: Actual application code that will be created/modified by implementation tasks. This is where the application being built lives, NOT in the specs folder.

@@ -33,19 +33,23 @@ description: "Task list template for feature implementation"
    - Contains: Application code, tests, runtime configuration
    - Location in Spec Kit: Repository/application root
    - **This is where ALL implementation tasks target their file paths**
-   - Structure: `src/`, `tests/`, `backend/`, `frontend/`, etc. (from plan.md)
+   - Structure: Defined in plan.md based on project needs
+   - **Note**: Semantic Architecture doesn't prescribe `src/`, `tests/`, etc. - these emerge from your project organization
 
 3. **Module Space (Co-located Meaning)**:
    - Module code + documentation together in Build Space
    - Each module has: code files + README.md + AGENT_INSTRUCTION.md
-   - Location: Within Build Space (e.g., `src/<module>/`, `backend/src/<module>/`)
+   - Location: Within Build Space (structure determined by plan.md)
    - **Tasks MUST update module docs when changing module behavior**
 
-**Application Code Structure** (based on project type from plan.md):
+**Folder Organization** (examples - not prescribed by Semantic Architecture):
 
-- **Single project**: `src/`, `tests/` at repository root
-- **Web app**: `backend/src/`, `frontend/src/` at repository root
-- **Mobile**: `api/src/`, `ios/src/` or `android/src/` at repository root
+The plan.md will define your project's structure based on type and needs. Common patterns that emerge from applying Semantic Architecture:
+- **Single project**: Code and tests at repository root
+- **Web app**: Separate backend and frontend areas
+- **Mobile**: API and platform-specific areas
+
+**Important**: These folder patterns are **outcomes** of applying Semantic Architecture principles, not requirements. Your project may organize differently based on its specific needs.
 
 <!-- 
   ============================================================================
