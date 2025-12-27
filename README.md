@@ -268,6 +268,16 @@ Additional commands for enhanced quality and validation:
 | `/speckit.analyze`   | Cross-artifact consistency & coverage analysis (run after `/speckit.tasks`, before `/speckit.implement`)                             |
 | `/speckit.checklist` | Generate custom quality checklists that validate requirements completeness, clarity, and consistency (like "unit tests for English") |
 
+#### Semantic Architecture Commands
+
+Commands for analyzing and enforcing [Semantic Architecture](https://github.com/dkuwcreator/Semantic-Architecture) principles:
+
+| Command                        | Description                                                                                                                   |
+| ------------------------------ | ----------------------------------------------------------------------------------------------------------------------------- |
+| `/speckit.semantic-audit`      | Analyze entire codebase for Semantic Architecture compliance, identifying modules, documentation gaps, and semantic drift    |
+| `/speckit.semantic-validate`   | Deep validation of specific semantic modules, checking meaning parity, bounded contexts, and documentation completeness      |
+| `/speckit.semantic-restructure` | Guide restructuring projects to Semantic Architecture principles, generating module documentation and suggesting improvements |
+
 ### Environment Variables
 
 | Variable          | Description                                                                                                                                                                                                                                                                                            |

@@ -392,6 +392,175 @@ A: No. Even small features should declare semantic scope. It takes 2 minutes and
 
 A: Start by adding Semantic Scope to new features. Over time, backfill module documentation (README.md + AGENT_INSTRUCTION.md) for critical modules. Prioritize by risk/change frequency.
 
+## Dedicated Semantic Architecture Commands
+
+Spec Kit includes specialized commands for analyzing, validating, and restructuring codebases according to Semantic Architecture principles:
+
+### `/speckit.semantic-audit` - Comprehensive Compliance Analysis
+
+**Purpose**: Analyze entire codebase for Semantic Architecture compliance.
+
+**Use Cases**:
+- Initial assessment of existing projects
+- Regular compliance audits (quarterly or after major features)
+- Identifying documentation gaps across all modules
+- Detecting semantic drift at scale
+
+**What it does**:
+- Scans repository to identify all semantic modules
+- Checks for missing README.md or AGENT_INSTRUCTION.md files
+- Detects semantic drift (docs ↔ code misalignment)
+- Validates module boundaries and dependencies
+- Generates comprehensive compliance report with prioritized action items
+
+**Example Usage**:
+```bash
+# Audit entire codebase
+/speckit.semantic-audit
+
+# Audit with specific focus
+/speckit.semantic-audit Focus on authentication and API modules
+```
+
+**Output**: Detailed report including:
+- Module inventory (compliant, partial, undocumented)
+- Semantic drift instances by severity
+- Boundary violations and coupling issues
+- Prioritized recommendations
+- Documentation templates for undocumented modules
+
+### `/speckit.semantic-validate` - Deep Module Validation
+
+**Purpose**: Perform detailed validation of specific semantic modules.
+
+**Use Cases**:
+- Before merging module changes
+- After refactoring module boundaries
+- Verifying meaning parity for critical modules
+- Validating new module documentation
+
+**What it does**:
+- Validates README.md and AGENT_INSTRUCTION.md completeness
+- Checks meaning parity (documentation matches code)
+- Verifies bounded context rules
+- Analyzes cross-module dependencies
+- Validates testing requirements
+
+**Example Usage**:
+```bash
+# Validate single module
+/speckit.semantic-validate src/auth/
+
+# Validate multiple modules
+/speckit.semantic-validate src/auth/ src/api/ src/storage/
+```
+
+**Output**: Detailed validation report including:
+- Overall grade (A-F)
+- Documentation completeness scores
+- API/dependency alignment analysis
+- Boundary compliance status
+- Prioritized action items for fixes
+
+### `/speckit.semantic-restructure` - Interactive Restructuring Guidance
+
+**Purpose**: Guide restructuring of projects to align with Semantic Architecture principles.
+
+**Use Cases**:
+- Generating documentation for undocumented modules
+- Extracting new semantic modules from existing code
+- Refactoring module boundaries to reduce coupling
+- Planning comprehensive codebase restructuring
+
+**What it does**:
+- Generates README.md and AGENT_INSTRUCTION.md templates based on code analysis
+- Suggests module extraction opportunities
+- Proposes boundary improvements for coupled modules
+- Creates migration plans for restructuring
+- Provides step-by-step restructuring checklists
+
+**Example Usage**:
+```bash
+# Generate docs for existing module
+/speckit.semantic-restructure src/auth/
+
+# Extract new module
+/speckit.semantic-restructure --extract user-validation from src/user/
+
+# Refactor module boundaries
+/speckit.semantic-restructure --refactor-boundaries src/auth/ src/user/
+
+# Full codebase restructuring plan
+/speckit.semantic-restructure --full-audit
+```
+
+**Output**: Context-aware guidance including:
+- Generated documentation templates (inferred from code)
+- Module extraction/refactoring plans
+- Boundary improvement suggestions
+- Migration checklists and roadmaps
+- Actionable next steps
+
+### Workflow Integration
+
+**Recommended Usage Pattern**:
+
+1. **Initial Assessment** (New or Existing Project):
+   ```bash
+   /speckit.semantic-audit
+   ```
+   - Understand current compliance state
+   - Identify priority modules to document
+
+2. **Module Documentation** (Per Module):
+   ```bash
+   /speckit.semantic-restructure src/[module-path]/
+   ```
+   - Generate README.md and AGENT_INSTRUCTION.md templates
+   - Customize based on actual module behavior
+
+3. **Validation** (Before Merge/After Changes):
+   ```bash
+   /speckit.semantic-validate src/[module-path]/
+   ```
+   - Verify documentation completeness
+   - Check meaning parity
+   - Ensure boundary compliance
+
+4. **Regular Audits** (Quarterly/After Major Features):
+   ```bash
+   /speckit.semantic-audit
+   ```
+   - Detect semantic drift
+   - Identify new documentation gaps
+   - Monitor compliance trends
+
+### Integration with Feature Development
+
+**During Feature Spec** (`/speckit.specify`):
+- Declare semantic scope (modules in/out of scope)
+- Document cross-module impacts
+
+**During Planning** (`/speckit.plan`):
+- Map modules to implementation changes
+- Identify meaning parity update requirements
+
+**During Task Generation** (`/speckit.tasks`):
+- Include documentation update tasks for affected modules
+
+**Before Implementation** (`/speckit.implement`):
+- Validate affected modules: `/speckit.semantic-validate [modules]`
+- Ensure clean baseline before changes
+
+**After Implementation**:
+- Re-validate modules: `/speckit.semantic-validate [modules]`
+- Update docs alongside code (meaning parity)
+- Run `/speckit.semantic-audit` if multiple modules changed
+
+**Quality Gate** (`/speckit.checklist`):
+- Semantic Architecture compliance checks included automatically
+- Verifies scope, doc parity, bounded contexts
+
 ## Resources
 
 - **Semantic Architecture Repo**: <https://github.com/dkuwcreator/Semantic-Architecture>
