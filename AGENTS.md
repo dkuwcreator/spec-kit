@@ -408,6 +408,284 @@ When adding new agents:
 - Update this guide with lessons learned
 - Verify the actual CLI tool name before adding to AGENT_CONFIG
 
+## Semantic Architecture Agent Usage
+
+Spec Kit includes specialized commands for analyzing and enforcing [Semantic Architecture](https://github.com/dkuwcreator/Semantic-Architecture) principles. These commands help maintain codebases optimized for human-AI collaboration.
+
+### Available Commands
+
+- **`/speckit.semantic-audit`**: Comprehensive codebase compliance analysis
+- **`/speckit.semantic-validate`**: Deep validation of specific semantic modules
+- **`/speckit.semantic-restructure`**: Interactive restructuring and documentation generation
+
+### When to Use Semantic Architecture Commands
+
+#### During Project Bootstrap
+
+When starting a new project or adopting Semantic Architecture:
+
+1. **Run initial audit**:
+   ```bash
+   /speckit.semantic-audit
+   ```
+   - Understand current compliance state
+   - Identify which directories could be semantic modules
+   - Get prioritized action plan
+
+2. **Generate module documentation** (for each identified module):
+   ```bash
+   /speckit.semantic-restructure src/[module-name]/
+   ```
+   - Creates README.md template based on code analysis
+   - Creates AGENT_INSTRUCTION.md template with inferred boundaries
+   - Provides customization guidance
+
+3. **Validate generated docs**:
+   ```bash
+   /speckit.semantic-validate src/[module-name]/
+   ```
+   - Checks documentation completeness
+   - Verifies meaning parity
+   - Identifies remaining gaps
+
+#### During Feature Development
+
+Integrate with standard Spec-Driven Development workflow:
+
+**Before Planning** (`/speckit.plan`):
+- Use `/speckit.semantic-validate [affected-modules]` to ensure clean baseline
+- Check existing module documentation for guidance
+
+**During Specification** (`/speckit.specify`):
+- Declare semantic scope (modules in/out of scope)
+- Document cross-module impacts
+- Use audit findings to inform scope boundaries
+
+**During Planning** (`/speckit.plan`):
+- Map planned changes to semantic modules
+- Identify meaning parity update requirements
+- Plan documentation updates alongside code changes
+
+**After Implementation**:
+- Update module README.md and AGENT_INSTRUCTION.md (meaning parity)
+- Re-validate affected modules: `/speckit.semantic-validate [modules]`
+- Run `/speckit.semantic-audit` if multiple modules changed
+
+#### Regular Maintenance
+
+**Quarterly Audits**:
+```bash
+/speckit.semantic-audit
+```
+- Detect semantic drift that accumulated over time
+- Identify new documentation gaps
+- Monitor compliance trends
+- Prioritize documentation debt
+
+**Before Major Releases**:
+```bash
+# Validate critical modules
+/speckit.semantic-validate src/auth/ src/api/ src/core/
+
+# Full audit
+/speckit.semantic-audit
+```
+- Ensure documentation is current
+- Fix semantic drift before release
+- Verify module boundaries are respected
+
+#### Refactoring and Restructuring
+
+When improving codebase architecture:
+
+1. **Identify coupling issues**:
+   ```bash
+   /speckit.semantic-audit
+   ```
+   - Boundary violations report
+   - Tight coupling detection
+   - Suggested module clusters
+
+2. **Plan refactoring**:
+   ```bash
+   /speckit.semantic-restructure --refactor-boundaries src/module-a/ src/module-b/
+   ```
+   - Boundary improvement suggestions
+   - Interface refactoring proposals
+   - Migration checklist
+
+3. **Extract new modules**:
+   ```bash
+   /speckit.semantic-restructure --extract [functionality] from src/[old-module]/
+   ```
+   - Module extraction plan
+   - Documentation templates for new module
+   - Migration guidance
+
+### Best Practices
+
+#### For AI Agents Working with Semantic Modules
+
+1. **Always check module documentation first**:
+   - Read README.md for purpose, responsibilities, invariants
+   - Read AGENT_INSTRUCTION.md for boundaries and constraints
+   - Respect documented limitations
+
+2. **Validate before making changes**:
+   ```bash
+   /speckit.semantic-validate [target-module]
+   ```
+   - Understand current state
+   - Identify existing issues
+   - Plan changes that improve compliance
+
+3. **Maintain meaning parity**:
+   - Update README.md when behavior changes
+   - Update AGENT_INSTRUCTION.md when boundaries change
+   - Document new APIs, dependencies, invariants
+   - Same commit/PR for code + docs
+
+4. **Respect bounded contexts**:
+   - Changes should stay within declared module boundaries
+   - Cross-module changes require explicit justification
+   - Use public APIs only (no internal imports)
+   - Document new cross-module dependencies
+
+5. **Escalate when uncertain**:
+   - If change affects multiple modules → ask for approval
+   - If boundary becomes unclear → request restructuring
+   - If invariant might be violated → verify with human
+
+#### For Human Developers
+
+1. **Use audit for prioritization**:
+   - Start with CRITICAL severity items
+   - Address HIGH severity semantic drift
+   - Plan MEDIUM/LOW items for later
+
+2. **Generate templates, don't start from scratch**:
+   - Use `/speckit.semantic-restructure` to generate docs
+   - Customize based on actual code behavior
+   - Don't hallucinate - base on real code
+
+3. **Validate regularly, not just at the end**:
+   - Validate modules after significant changes
+   - Run audits after merging multiple features
+   - Include validation in CI/CD pipeline (future)
+
+4. **Document restructuring decisions**:
+   - Use `/speckit.semantic-restructure` to plan before executing
+   - Generate migration checklists
+   - Update all affected module documentation
+
+### Integration with Constitution
+
+If your project has a constitution (`/memory/constitution.md`) with Semantic Architecture principles:
+
+1. **Audit respects constitution rules**:
+   - Uses constitution's Semantic Architecture section as authority
+   - Reports violations of constitution-defined rules
+   - Flags missing required sections
+
+2. **Commands reference constitution**:
+   - Validation checks against constitution requirements
+   - Restructuring suggestions align with constitution principles
+   - Generated documentation follows constitution patterns
+
+3. **Update constitution when needed**:
+   - If project-specific rules emerge, add to constitution
+   - Use constitution to define organization-wide module standards
+   - Constitution changes should trigger re-audit
+
+### Common Pitfalls to Avoid
+
+1. **Don't generate docs without analyzing code**:
+   - ❌ Wrong: Generic templates not based on actual code
+   - ✅ Right: Use `/speckit.semantic-restructure` to infer from code
+
+2. **Don't skip validation after changes**:
+   - ❌ Wrong: Assume docs are still accurate after code changes
+   - ✅ Right: Re-validate modules after implementation
+
+3. **Don't ignore semantic drift warnings**:
+   - ❌ Wrong: Defer fixing drift indefinitely
+   - ✅ Right: Fix CRITICAL/HIGH drift before merging
+
+4. **Don't bypass module boundaries**:
+   - ❌ Wrong: Import from `module/internal/` for convenience
+   - ✅ Right: Use public API, or request boundary expansion
+
+5. **Don't create modules for everything**:
+   - ❌ Wrong: Single-file "modules" with no clear bounded context
+   - ✅ Right: Modules have cohesive responsibilities and clear boundaries
+
+### Example Workflows
+
+#### Workflow 1: Documenting Existing Codebase
+
+```bash
+# Step 1: Understand current state
+/speckit.semantic-audit
+
+# Step 2: Generate docs for priority module
+/speckit.semantic-restructure src/auth/
+
+# Step 3: Review and customize generated templates
+# (human edits README.md and AGENT_INSTRUCTION.md)
+
+# Step 4: Validate documentation
+/speckit.semantic-validate src/auth/
+
+# Step 5: Fix any issues identified
+# (update docs or code to achieve meaning parity)
+
+# Step 6: Repeat for other modules
+```
+
+#### Workflow 2: Feature Development with Semantic Scope
+
+```bash
+# Step 1: Validate baseline
+/speckit.semantic-validate src/auth/
+
+# Step 2: Create spec with semantic scope
+/speckit.specify Add OAuth2 support to authentication module
+
+# Step 3: Plan with module awareness
+/speckit.plan Use passport.js for OAuth2, maintain backward compatibility
+
+# Step 4: Generate tasks (includes doc updates)
+/speckit.tasks
+
+# Step 5: Implement (code + docs in same commit)
+/speckit.implement
+
+# Step 6: Validate after changes
+/speckit.semantic-validate src/auth/
+```
+
+#### Workflow 3: Quarterly Maintenance Audit
+
+```bash
+# Step 1: Full audit
+/speckit.semantic-audit
+
+# Step 2: Review findings, prioritize
+# Focus on CRITICAL and HIGH severity items
+
+# Step 3: Fix semantic drift
+# For each drifted module:
+/speckit.semantic-validate src/[module]/
+# Then fix identified issues
+
+# Step 4: Generate missing docs
+# For undocumented modules:
+/speckit.semantic-restructure src/[module]/
+
+# Step 5: Re-audit to verify
+/speckit.semantic-audit
+```
+
 ---
 
 *This documentation should be updated whenever new agents are added to maintain accuracy and completeness.*
