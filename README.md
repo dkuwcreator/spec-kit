@@ -273,11 +273,11 @@ Additional commands for enhanced quality and validation:
 
 Commands for analyzing and enforcing [Semantic Architecture](https://github.com/dkuwcreator/Semantic-Architecture) principles:
 
-| Command                        | Description                                                                                                                   |
-| ------------------------------ | ----------------------------------------------------------------------------------------------------------------------------- |
-| `/speckit.semantic-audit`      | Analyze entire codebase for Semantic Architecture compliance, identifying modules, documentation gaps, and semantic drift    |
-| `/speckit.semantic-validate`   | Deep validation of specific semantic modules, checking meaning parity, bounded contexts, and documentation completeness      |
-| `/speckit.semantic-restructure` | Guide restructuring projects to Semantic Architecture principles, generating module documentation and suggesting improvements |
+| Command | Description |
+| ------- | ----------- |
+| `/speckit.semantic-audit` | Analyze codebase for Semantic Architecture compliance, modules, documentation gaps, and drift |
+| `/speckit.semantic-validate` | Deep validation of semantic modules: meaning parity, bounded contexts, documentation |
+| `/speckit.semantic-restructure` | Guide restructuring to Semantic Architecture, generating module documentation and improvements |
 
 ### Environment Variables
 

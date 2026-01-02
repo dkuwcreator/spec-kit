@@ -401,12 +401,14 @@ Spec Kit includes specialized commands for analyzing, validating, and restructur
 **Purpose**: Analyze entire codebase for Semantic Architecture compliance.
 
 **Use Cases**:
+
 - Initial assessment of existing projects
 - Regular compliance audits (quarterly or after major features)
 - Identifying documentation gaps across all modules
 - Detecting semantic drift at scale
 
 **What it does**:
+
 - Scans repository to identify all semantic modules
 - Checks for missing README.md or AGENT_INSTRUCTION.md files
 - Detects semantic drift (docs ↔ code misalignment)
@@ -414,6 +416,7 @@ Spec Kit includes specialized commands for analyzing, validating, and restructur
 - Generates comprehensive compliance report with prioritized action items
 
 **Example Usage**:
+
 ```bash
 # Audit entire codebase
 /speckit.semantic-audit
@@ -423,6 +426,7 @@ Spec Kit includes specialized commands for analyzing, validating, and restructur
 ```
 
 **Output**: Detailed report including:
+
 - Module inventory (compliant, partial, undocumented)
 - Semantic drift instances by severity
 - Boundary violations and coupling issues
@@ -434,12 +438,14 @@ Spec Kit includes specialized commands for analyzing, validating, and restructur
 **Purpose**: Perform detailed validation of specific semantic modules.
 
 **Use Cases**:
+
 - Before merging module changes
 - After refactoring module boundaries
 - Verifying meaning parity for critical modules
 - Validating new module documentation
 
 **What it does**:
+
 - Validates README.md and AGENT_INSTRUCTION.md completeness
 - Checks meaning parity (documentation matches code)
 - Verifies bounded context rules
@@ -447,6 +453,7 @@ Spec Kit includes specialized commands for analyzing, validating, and restructur
 - Validates testing requirements
 
 **Example Usage**:
+
 ```bash
 # Validate single module
 /speckit.semantic-validate src/auth/
@@ -456,6 +463,7 @@ Spec Kit includes specialized commands for analyzing, validating, and restructur
 ```
 
 **Output**: Detailed validation report including:
+
 - Overall grade (A-F)
 - Documentation completeness scores
 - API/dependency alignment analysis
@@ -467,12 +475,14 @@ Spec Kit includes specialized commands for analyzing, validating, and restructur
 **Purpose**: Guide restructuring of projects to align with Semantic Architecture principles.
 
 **Use Cases**:
+
 - Generating documentation for undocumented modules
 - Extracting new semantic modules from existing code
 - Refactoring module boundaries to reduce coupling
 - Planning comprehensive codebase restructuring
 
 **What it does**:
+
 - Generates README.md and AGENT_INSTRUCTION.md templates based on code analysis
 - Suggests module extraction opportunities
 - Proposes boundary improvements for coupled modules
@@ -480,6 +490,7 @@ Spec Kit includes specialized commands for analyzing, validating, and restructur
 - Provides step-by-step restructuring checklists
 
 **Example Usage**:
+
 ```bash
 # Generate docs for existing module
 /speckit.semantic-restructure src/auth/
@@ -495,6 +506,7 @@ Spec Kit includes specialized commands for analyzing, validating, and restructur
 ```
 
 **Output**: Context-aware guidance including:
+
 - Generated documentation templates (inferred from code)
 - Module extraction/refactoring plans
 - Boundary improvement suggestions
@@ -506,31 +518,39 @@ Spec Kit includes specialized commands for analyzing, validating, and restructur
 **Recommended Usage Pattern**:
 
 1. **Initial Assessment** (New or Existing Project):
+
    ```bash
    /speckit.semantic-audit
    ```
+
    - Understand current compliance state
    - Identify priority modules to document
 
 2. **Module Documentation** (Per Module):
+
    ```bash
    /speckit.semantic-restructure src/[module-path]/
    ```
+
    - Generate README.md and AGENT_INSTRUCTION.md templates
    - Customize based on actual module behavior
 
 3. **Validation** (Before Merge/After Changes):
+
    ```bash
    /speckit.semantic-validate src/[module-path]/
    ```
+
    - Verify documentation completeness
    - Check meaning parity
    - Ensure boundary compliance
 
 4. **Regular Audits** (Quarterly/After Major Features):
+
    ```bash
    /speckit.semantic-audit
    ```
+
    - Detect semantic drift
    - Identify new documentation gaps
    - Monitor compliance trends
@@ -538,26 +558,32 @@ Spec Kit includes specialized commands for analyzing, validating, and restructur
 ### Integration with Feature Development
 
 **During Feature Spec** (`/speckit.specify`):
+
 - Declare semantic scope (modules in/out of scope)
 - Document cross-module impacts
 
 **During Planning** (`/speckit.plan`):
+
 - Map modules to implementation changes
 - Identify meaning parity update requirements
 
 **During Task Generation** (`/speckit.tasks`):
+
 - Include documentation update tasks for affected modules
 
 **Before Implementation** (`/speckit.implement`):
+
 - Validate affected modules: `/speckit.semantic-validate [modules]`
 - Ensure clean baseline before changes
 
 **After Implementation**:
+
 - Re-validate modules: `/speckit.semantic-validate [modules]`
 - Update docs alongside code (meaning parity)
 - Run `/speckit.semantic-audit` if multiple modules changed
 
 **Quality Gate** (`/speckit.checklist`):
+
 - Semantic Architecture compliance checks included automatically
 - Verifies scope, doc parity, bounded contexts
 
