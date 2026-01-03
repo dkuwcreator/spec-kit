@@ -24,6 +24,7 @@
 - [📽️ Video Overview](#️-video-overview)
 - [🤖 Supported AI Agents](#-supported-ai-agents)
 - [🔧 Specify CLI Reference](#-specify-cli-reference)
+- [🔌 MCP Server](#-mcp-server)
 - [📚 Core Philosophy](#-core-philosophy)
 - [🌟 Development Phases](#-development-phases)
 - [🎯 Experimental Goals](#-experimental-goals)
@@ -272,17 +273,98 @@ Additional commands for enhanced quality and validation:
 
 Commands for analyzing and enforcing [Semantic Architecture](https://github.com/dkuwcreator/Semantic-Architecture) principles:
 
-| Command                        | Description                                                                                                                   |
-| ------------------------------ | ----------------------------------------------------------------------------------------------------------------------------- |
-| `/speckit.semantic-audit`      | Analyze entire codebase for Semantic Architecture compliance, identifying modules, documentation gaps, and semantic drift    |
-| `/speckit.semantic-validate`   | Deep validation of specific semantic modules, checking meaning parity, bounded contexts, and documentation completeness      |
-| `/speckit.semantic-restructure` | Guide restructuring projects to Semantic Architecture principles, generating module documentation and suggesting improvements |
+| Command | Description |
+| ------- | ----------- |
+| `/speckit.semantic-audit` | Analyze codebase for Semantic Architecture compliance, modules, documentation gaps, and drift |
+| `/speckit.semantic-validate` | Deep validation of semantic modules: meaning parity, bounded contexts, documentation |
+| `/speckit.semantic-restructure` | Guide restructuring to Semantic Architecture, generating module documentation and improvements |
 
 ### Environment Variables
 
 | Variable          | Description                                                                                                                                                                                                                                                                                            |
 | ----------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
 | `SPECIFY_FEATURE` | Override feature detection for non-Git repositories. Set to the feature directory name (e.g., `001-photo-albums`) to work on a specific feature when not using Git branches.<br/>\*\*Must be set in the context of the agent you're working with prior to using `/speckit.plan` or follow-up commands. |
+
+## 🔌 MCP Server
+
+Spec Kit includes an **optional MCP (Model Context Protocol) server** that exposes core Spec Kit capabilities as standardized tools for MCP-compatible AI clients.
+
+### Why MCP?
+
+The MCP server provides:
+
+- **Agent-agnostic integration**: One standard interface works with all MCP-compatible clients (Claude Desktop, VS Code extensions, custom integrations)
+- **Discoverability**: Clients can automatically discover available Spec Kit tools
+- **Centralized upgrades**: Update the server once, all clients benefit
+- **Side-effect free**: Server returns content; clients decide what to apply
+
+### Hybrid Architecture
+
+Spec Kit uses a **hybrid approach**:
+
+- **Layer 1 - Repo-Native Kit**: The existing CLI, templates, `.specify/` structure (unchanged)
+- **Layer 2 - MCP Adapter**: Optional MCP server exposing reusable capabilities
+
+This preserves the "repo as source of truth" model while enabling standardized tool-based access.
+
+### Installation
+
+```bash
+# Install with MCP support
+pip install 'specify-cli[mcp]'
+
+# Or with uv
+uv pip install 'specify-cli[mcp]'
+```
+
+### Automatic MCP Configuration
+
+When you initialize a project with `specify init`, MCP configuration files are **automatically created** for supported editors:
+
+- `.vscode/mcp.json` - For VS Code
+- `.cursor/mcp.json` - For Cursor
+- `.windsurf/mcp.json` - For Windsurf
+- `.claude/mcp.json` - For Claude Desktop
+
+Simply open your project in the supported editor and the MCP server will be available—no manual configuration needed!
+
+### Available MCP Tools
+
+The MCP server exposes these tools:
+
+| Tool                            | Description                                   |
+|---------------------------------|-----------------------------------------------|
+| `speckit_list_templates`        | List available template IDs and versions      |
+| `speckit_render_template`       | Render templates with variables               |
+| `speckit_validate_artifacts`    | Cross-artifact consistency validation         |
+| `speckit_generate_checklist`    | Generate tailored quality checklists          |
+| `speckit_get_command_template`  | Get slash command templates                   |
+
+### Manual Configuration (Optional)
+
+If you need to configure Claude Desktop globally instead of per-project, add to your configuration (`~/Library/Application Support/Claude/claude_desktop_config.json`):
+
+```json
+{
+  "mcpServers": {
+    "specify-mcp": {
+      "command": "specify-mcp"
+    }
+  }
+}
+```
+
+Restart Claude Desktop and use Spec Kit tools in conversations:
+
+```text
+Use the speckit_list_templates tool to show me available templates
+```
+
+### Documentation
+
+For detailed MCP server documentation, usage examples, and integration guides, see:
+
+**[📘 MCP Server Documentation](./docs/mcp-server.md)**
 
 ## 📚 Core Philosophy
 

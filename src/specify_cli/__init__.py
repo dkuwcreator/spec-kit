@@ -567,8 +567,8 @@ def init_git_repo(project_path: Path, quiet: bool = False) -> Tuple[bool, Option
     finally:
         os.chdir(original_cwd)
 
-def handle_vscode_settings(sub_item, dest_file, rel_path, verbose=False, tracker=None) -> None:
-    """Handle merging or copying of .vscode/settings.json files."""
+def handle_editor_json_file(sub_item, dest_file, rel_path, verbose=False, tracker=None) -> None:
+    """Handle merging or copying of editor JSON configuration files (settings.json, mcp.json, etc.)."""
     def log(message, color="green"):
         if verbose and not tracker:
             console.print(f"[{color}]{message}[/] {rel_path}")
@@ -585,11 +585,19 @@ def handle_vscode_settings(sub_item, dest_file, rel_path, verbose=False, tracker
             log("Merged:", "green")
         else:
             shutil.copy2(sub_item, dest_file)
-            log("Copied (no existing settings.json):", "blue")
+            log(f"Copied (no existing {dest_file.name}):", "blue")
 
     except Exception as e:
         log(f"Warning: Could not merge, copying instead: {e}", "yellow")
         shutil.copy2(sub_item, dest_file)
+
+def handle_vscode_json_file(sub_item, dest_file, rel_path, verbose=False, tracker=None) -> None:
+    """Handle merging or copying of .vscode JSON files. Deprecated - use handle_editor_json_file."""
+    handle_editor_json_file(sub_item, dest_file, rel_path, verbose, tracker)
+
+def handle_vscode_settings(sub_item, dest_file, rel_path, verbose=False, tracker=None) -> None:
+    """Handle merging or copying of .vscode/settings.json files. Deprecated - use handle_editor_json_file."""
+    handle_editor_json_file(sub_item, dest_file, rel_path, verbose, tracker)
 
 def merge_json_files(existing_path: Path, new_content: dict, verbose: bool = False) -> dict:
     """Merge new JSON content into existing JSON file.
@@ -829,9 +837,13 @@ def download_and_extract_template(project_path: Path, ai_assistant: str, script_
                                         rel_path = sub_item.relative_to(item)
                                         dest_file = dest_path / rel_path
                                         dest_file.parent.mkdir(parents=True, exist_ok=True)
-                                        # Special handling for .vscode/settings.json - merge instead of overwrite
-                                        if dest_file.name == "settings.json" and dest_file.parent.name == ".vscode":
-                                            handle_vscode_settings(sub_item, dest_file, rel_path, verbose, tracker)
+                                        # Special handling for editor config JSON files - merge instead of overwrite
+                                        # Supported editor folders that may contain JSON configs
+                                        editor_folders = [".vscode", ".cursor", ".windsurf", ".claude", ".github"]
+                                        mergeable_json_files = ["settings.json", "mcp.json"]
+                                        
+                                        if dest_file.parent.name in editor_folders and dest_file.name in mergeable_json_files:
+                                            handle_editor_json_file(sub_item, dest_file, rel_path, verbose, tracker)
                                         else:
                                             shutil.copy2(sub_item, dest_file)
                             else:

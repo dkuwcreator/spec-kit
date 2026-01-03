@@ -253,7 +253,7 @@ function Build-Variant {
         New-Item -ItemType Directory -Path $templatesDestDir -Force | Out-Null
         
         Get-ChildItem -Path "templates" -Recurse -File | Where-Object {
-            $_.FullName -notmatch 'templates[/\\]commands[/\\]' -and $_.Name -ne 'vscode-settings.json'
+            $_.FullName -notmatch 'templates[/\\]commands[/\\]' -and $_.Name -ne 'vscode-settings.json' -and $_.Name -notmatch '-mcp\.json$'
         } | ForEach-Object {
             $relativePath = $_.FullName.Substring((Resolve-Path "templates").Path.Length + 1)
             $destFile = Join-Path $templatesDestDir $relativePath
@@ -269,6 +269,10 @@ function Build-Variant {
         'claude' {
             $cmdDir = Join-Path $baseDir ".claude/commands"
             Generate-Commands -Agent 'claude' -Extension 'md' -ArgFormat '$ARGUMENTS' -OutputDir $cmdDir -ScriptVariant $Script
+            # Add MCP configuration
+            if (Test-Path "templates/claude-mcp.json") {
+                Copy-Item -Path "templates/claude-mcp.json" -Destination (Join-Path $baseDir ".claude/mcp.json")
+            }
         }
         'gemini' {
             $cmdDir = Join-Path $baseDir ".gemini/commands"
@@ -285,16 +289,23 @@ function Build-Variant {
             $promptsDir = Join-Path $baseDir ".github/prompts"
             Generate-CopilotPrompts -AgentsDir $agentsDir -PromptsDir $promptsDir
             
-            # Create VS Code workspace settings
+            # Create VS Code workspace settings and MCP configuration
             $vscodeDir = Join-Path $baseDir ".vscode"
             New-Item -ItemType Directory -Path $vscodeDir -Force | Out-Null
             if (Test-Path "templates/vscode-settings.json") {
                 Copy-Item -Path "templates/vscode-settings.json" -Destination (Join-Path $vscodeDir "settings.json")
             }
+            if (Test-Path "templates/vscode-mcp.json") {
+                Copy-Item -Path "templates/vscode-mcp.json" -Destination (Join-Path $vscodeDir "mcp.json")
+            }
         }
         'cursor-agent' {
             $cmdDir = Join-Path $baseDir ".cursor/commands"
             Generate-Commands -Agent 'cursor-agent' -Extension 'md' -ArgFormat '$ARGUMENTS' -OutputDir $cmdDir -ScriptVariant $Script
+            # Add MCP configuration
+            if (Test-Path "templates/cursor-mcp.json") {
+                Copy-Item -Path "templates/cursor-mcp.json" -Destination (Join-Path $baseDir ".cursor/mcp.json")
+            }
         }
         'qwen' {
             $cmdDir = Join-Path $baseDir ".qwen/commands"
@@ -310,6 +321,10 @@ function Build-Variant {
         'windsurf' {
             $cmdDir = Join-Path $baseDir ".windsurf/workflows"
             Generate-Commands -Agent 'windsurf' -Extension 'md' -ArgFormat '$ARGUMENTS' -OutputDir $cmdDir -ScriptVariant $Script
+            # Add MCP configuration
+            if (Test-Path "templates/windsurf-mcp.json") {
+                Copy-Item -Path "templates/windsurf-mcp.json" -Destination (Join-Path $baseDir ".windsurf/mcp.json")
+            }
         }
         'codex' {
             $cmdDir = Join-Path $baseDir ".codex/prompts"
